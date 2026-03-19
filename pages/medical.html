@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>医療・脳疾患 — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
+<div class="page">
+<script src="../js/shared.js"></script>
+<script>document.write(headerHTML('medical'))</script>
+<script>document.write(backHTML())</script>
+
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Medical & Brain Injury</p><h1 class="page-title">医療・脳疾患</h1><p class="page-desc">脳卒中・脳外傷・高次脳機能障害の統計データ</p></div></section>
+
+<div class="stat-grid fade-in">
+  <div class="stat-card"><span class="stat-card-label">脳卒中入院患者</span><span class="stat-card-value" style="color:var(--accent5)">103<small>千人/日</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">脳卒中死亡数</span><span class="stat-card-value" style="color:var(--accent5)">97,000<small>人/年</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">平均在院日数</span><span class="stat-card-value">77.4<small>日</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">外傷性脳損傷(年間)</span><span class="stat-card-value" style="color:#c0392b">30,000<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">高次脳機能障害</span><span class="stat-card-value" style="color:#c0392b">500,000<small>人(推計)</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">支援拠点機関</span><span class="stat-card-value">125<small>箇所</small></span></div>
+</div>
+
+<section class="section-spacer fade-in"><h3 class="sub-title">脳卒中 種類別内訳</h3><div id="stroke-types"></div></section>
+
+<section class="section-spacer fade-in"><h3 class="sub-title">脳卒中 入院患者数の推移（千人/日）</h3><div id="stroke-patients"></div></section>
+
+<section class="section-spacer fade-in"><h3 class="sub-title">脳血管疾患 死亡数の推移（千人）</h3><div id="stroke-deaths"></div></section>
+
+<div class="info-card fade-in"><h3>高次脳機能障害について</h3><p>脳外傷や脳卒中の後遺症として発生する認知障害の総称。推計50万人が症状を抱えており、主な症状は記憶障害、注意障害、遂行機能障害、社会的行動障害。全国125の支援拠点機関で相談支援を実施。</p><p>外傷性脳損傷(TBI)の主な原因: 交通事故(40%)、転倒・転落(35%)、スポーツ(10%)、その他(15%)。</p><p class="info-source">出典: 厚労省「患者調査」(令和5年) / 国立障害者リハビリテーションセンター</p></div>
+
+<div class="info-card fade-in"><h3>脳外傷(TBI)の原因別割合</h3><div id="tbi-causes"></div></div>
+
+<script>document.write(footerHTML())</script>
+</div>
+<script>
+createHBar(document.getElementById('stroke-types'),[{name:'脳梗塞',value:63},{name:'脳内出血',value:23},{name:'くも膜下出血',value:8},{name:'その他',value:6}],'var(--accent5)',70);
+createBarChart(document.getElementById('stroke-patients'),[170,152,137,134,118,112,108,103],['2002','2005','2008','2011','2014','2017','2020','2023'],180,'var(--accent5)');
+createBarChart(document.getElementById('stroke-deaths'),[132,131,123,111,102,97],['2000','2005','2010','2015','2020','2023'],140,'#c0392b');
+createHBar(document.getElementById('tbi-causes'),[{name:'交通事故',value:40},{name:'転倒・転落',value:35},{name:'スポーツ',value:10},{name:'その他',value:15}],'#c0392b',45);
+initScrollReveal(); checkAPI();
+</script></body></html>

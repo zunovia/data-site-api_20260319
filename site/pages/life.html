@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>暮らし — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
+<div class="page">
+<script src="../js/shared.js"></script>
+<script>document.write(headerHTML('life'))</script>
+<script>document.write(backHTML())</script>
+
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Living</p><h1 class="page-title">暮らし</h1><p class="page-desc">家計調査の品目別支出ランキングと消費者物価指数</p></div></section>
+
+<section class="fade-in"><h3 class="sub-title">品目別支出 No.1 都市</h3>
+<div class="life-grid">
+  <div class="life-card"><span class="life-item">ラーメン</span><span class="life-city">山形市</span><span class="life-amount">18,834<small>円/年</small></span></div>
+  <div class="life-card"><span class="life-item">餃子</span><span class="life-city">宮崎市</span><span class="life-amount">4,184<small>円/年</small></span></div>
+  <div class="life-card"><span class="life-item">カレー</span><span class="life-city">鳥取市</span><span class="life-amount">11,338<small>円/年</small></span></div>
+  <div class="life-card"><span class="life-item">コーヒー</span><span class="life-city">京都市</span><span class="life-amount">16,265<small>円/年</small></span></div>
+  <div class="life-card"><span class="life-item">パン</span><span class="life-city">神戸市</span><span class="life-amount">42,237<small>円/年</small></span></div>
+  <div class="life-card"><span class="life-item">牛肉</span><span class="life-city">京都市</span><span class="life-amount">34,517<small>円/年</small></span></div>
+</div></section>
+
+<section class="section-spacer fade-in"><h3 class="sub-title">消費者物価指数（CPI）推移　2020年基準=100</h3><div id="cpi-chart"></div></section>
+
+<div class="info-card fade-in"><h3>CPI物価上昇について</h3><p>2024年のCPIは108.5。2022年以降、エネルギー価格の上昇と円安による輸入物価の高騰で急激な物価上昇が発生。</p><p class="info-source">出典: 総務省統計局「家計調査」「消費者物価指数」(2023年)</p></div>
+
+<script>document.write(footerHTML())</script>
+</div>
+<script>
+createBarChart(document.getElementById('cpi-chart'),[99.3,99.8,100.0,99.8,102.3,105.8,108.5],['2018','2019','2020','2021','2022','2023','2024'],115,'var(--accent3)');
+initScrollReveal(); checkAPI();
+</script></body></html>
