@@ -177,9 +177,10 @@ function createBarChart(el,data,labels,maxV,color,unit=''){
   const mx=maxV||Math.max(...data);
   const ticks=[];for(let i=0;i<=3;i++){const v=Math.round(mx*i/3);ticks.push(v)}
   const unitLabel=unit||'';
-  // Y-axis with unit label
+  const unitDisplay=unitLabel?`(${unitLabel})`:'';
+  // Y-axis: unit in () displayed ABOVE the top tick, with spacing
   let yAxisHtml=`<div class="bar-yaxis">`;
-  if(unitLabel) yAxisHtml+=`<span class="axis-unit">${unitLabel}</span>`;
+  if(unitDisplay) yAxisHtml+=`<span class="axis-unit">${unitDisplay}</span>`;
   for(let i=3;i>=0;i--){
     const display=ticks[i]>=10000?(ticks[i]/1000).toFixed(0)+'k':ticks[i]>=1000?ticks[i].toLocaleString():ticks[i];
     yAxisHtml+=`<span>${display}</span>`;
@@ -190,7 +191,7 @@ function createBarChart(el,data,labels,maxV,color,unit=''){
   data.forEach((v,i)=>{
     const pct=(v/mx)*100;
     const displayVal=typeof v==='number'?(v>=1000?v.toLocaleString():v):'';
-    barsHtml+=`<div class="bar-item" onmouseenter="showTip(event,'${labels[i]}: ${displayVal}${unitLabel}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
+    barsHtml+=`<div class="bar-item" onmouseenter="showTip(event,'${labels[i]}: ${displayVal} ${unitLabel}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
       <span class="bar-val-top">${displayVal}</span>
       <div class="bar-track"><div class="bar-fill" style="height:${pct}%;background:${color}"></div></div>
       <span class="bar-label">${labels[i]}</span></div>`;
@@ -248,7 +249,7 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
 
   // Y-axis ticks + unit label at top
   let yTicks='';
-  if(unit) yTicks+=`<text x="${padL-1}" y="${padT-3}" text-anchor="end" fill="#f4b942" font-size="3.2" font-weight="700" font-family="var(--mono)">${unit}</text>`;
+  if(unit) yTicks+=`<text x="${padL-1}" y="${padT-5}" text-anchor="end" fill="#f4b942" font-size="3" font-weight="700" font-family="var(--mono)">(${unit})</text>`;
   for(let i=0;i<=2;i++){
     const v=mn+range*(i/2);
     const y=padT+(1-i/2)*plotH;
@@ -273,7 +274,7 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
     const x=padL+(i/(data.length-1))*plotW;
     xLabels+=`<text x="${x}" y="${H-3}" text-anchor="middle" fill="#d0c8b8" font-size="3" font-weight="500" font-family="var(--mono)">${labels[i]}</text>`;
   });
-  xLabels+=`<text x="${W-1}" y="${H-3}" text-anchor="end" fill="#f4b942" font-size="2.8" font-weight="700" font-family="var(--mono)">年</text>`;
+  xLabels+=`<text x="${W-1}" y="${H-3}" text-anchor="end" fill="#f4b942" font-size="2.8" font-weight="700" font-family="var(--mono)">（年）</text>`;
 
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
     ${yTicks}
@@ -351,7 +352,7 @@ function createPopPyramid(el,optTitle){
   });
 
   // Unit label
-  svg+=`<text x="${W-2}" y="${H-2}" text-anchor="end" fill="var(--fg4)" font-size="2.5" font-family="var(--sans)">単位: 万人</text>`;
+  svg+=`<text x="${W-2}" y="${H-2}" text-anchor="end" fill="var(--fg4)" font-size="2.5" font-family="var(--sans)">(単位: 万人)</text>`;
   // Arrow legends
   svg+=`<text x="${padL+5}" y="${H-2}" text-anchor="start" fill="#3b82f6" font-size="2.8" font-weight="600" font-family="var(--sans)">← 男性</text>`;
   svg+=`<text x="${W-padR-5}" y="${H-2}" text-anchor="end" fill="#ec4899" font-size="2.8" font-weight="600" font-family="var(--sans)">女性 →</text>`;

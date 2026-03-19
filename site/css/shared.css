@@ -329,9 +329,9 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
 
 /* ===== BRIGHT & LARGE chart text ===== */
 .bar-yaxis span{font-size:.55rem!important;color:#d0c8b8!important;font-weight:500!important}
-.axis-unit{font-size:.5rem!important;color:#f4b942!important;font-weight:700!important;letter-spacing:.02em}
+.axis-unit{font-size:.48rem!important;color:#f4b942!important;font-weight:700!important;letter-spacing:.02em;margin-bottom:4px!important;display:block!important;line-height:1!important}
 .bar-label{font-size:.58rem!important;color:#d0c8b8!important;font-weight:500!important}
-.bar-val-top{font-family:var(--mono);font-size:.5rem;font-weight:700;color:#fff;text-align:center;display:block;margin-bottom:2px;min-height:14px;line-height:14px}
+.bar-val-top{font-family:var(--mono);font-size:.48rem;font-weight:700;color:#fff;text-align:center;display:block;margin-bottom:3px;min-height:12px;line-height:12px;white-space:nowrap;overflow:visible}
 .hbar-name{font-size:.72rem!important;color:#d0c8b8!important;font-weight:500!important}
 .hbar-val{font-size:.68rem!important;color:#fff!important;font-weight:600!important}
 .donut-label{color:#d0c8b8!important;font-size:.68rem!important}
