@@ -175,10 +175,11 @@ function zoomChart(el){
 // === Bar Chart with Y-axis + tooltip + zoom ===
 function createBarChart(el,data,labels,maxV,color,unit=''){
   const mx=maxV||Math.max(...data);
-  // Y-axis ticks (4 lines)
   const ticks=[];for(let i=0;i<=3;i++){const v=Math.round(mx*i/3);ticks.push(v)}
   const unitLabel=unit||'';
-  let yAxisHtml='<div class="bar-yaxis">';
+  // Y-axis with unit label
+  let yAxisHtml=`<div class="bar-yaxis">`;
+  if(unitLabel) yAxisHtml+=`<span class="axis-unit">${unitLabel}</span>`;
   for(let i=3;i>=0;i--){
     const display=ticks[i]>=10000?(ticks[i]/1000).toFixed(0)+'k':ticks[i]>=1000?ticks[i].toLocaleString():ticks[i];
     yAxisHtml+=`<span>${display}</span>`;
@@ -190,6 +191,7 @@ function createBarChart(el,data,labels,maxV,color,unit=''){
     const pct=(v/mx)*100;
     const displayVal=typeof v==='number'?(v>=1000?v.toLocaleString():v):'';
     barsHtml+=`<div class="bar-item" onmouseenter="showTip(event,'${labels[i]}: ${displayVal}${unitLabel}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
+      <span class="bar-val-top">${displayVal}</span>
       <div class="bar-track"><div class="bar-fill" style="height:${pct}%;background:${color}"></div></div>
       <span class="bar-label">${labels[i]}</span></div>`;
   });
@@ -228,54 +230,55 @@ function createHBar(el,items,color,maxV){
 document.addEventListener('DOMContentLoaded',()=>{initScrollReveal();checkAPI()});
 
 // ======================================================
-// LINE CHART with large value labels
+// LINE CHART — bright values, axis units, large fonts
 // ======================================================
 function createLineChart(el,data,labels,maxV,color,unit=''){
   const mx=maxV||Math.max(...data);
   const mn=Math.min(...data)*0.95;
   const range=mx-mn;
-  const W=100,H=55; // viewBox percentages
-  const padL=8,padR=2,padT=6,padB=10;
+  const W=100,H=60;
+  const padL=10,padR=3,padT=8,padB=13;
   const plotW=W-padL-padR, plotH=H-padT-padB;
 
-  // Build SVG polyline points
   const pts=data.map((v,i)=>{
     const x=padL+(i/(data.length-1))*plotW;
     const y=padT+(1-(v-mn)/range)*plotH;
     return`${x},${y}`;
   });
 
-  // Y-axis ticks (3 lines)
+  // Y-axis ticks + unit label at top
   let yTicks='';
+  if(unit) yTicks+=`<text x="${padL-1}" y="${padT-3}" text-anchor="end" fill="#f4b942" font-size="3.2" font-weight="700" font-family="var(--mono)">${unit}</text>`;
   for(let i=0;i<=2;i++){
     const v=mn+range*(i/2);
     const y=padT+(1-i/2)*plotH;
     const label=v>=10000?(v/1000).toFixed(0)+'k':v>=1000?Math.round(v).toLocaleString():v.toFixed(1);
-    yTicks+=`<text x="${padL-1}" y="${y+1.2}" text-anchor="end" fill="var(--fg4)" font-size="3" font-family="var(--mono)">${label}</text>`;
-    yTicks+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="var(--border)" stroke-width="0.2"/>`;
+    yTicks+=`<text x="${padL-1}" y="${y+1.2}" text-anchor="end" fill="#d0c8b8" font-size="3.2" font-weight="500" font-family="var(--mono)">${label}</text>`;
+    yTicks+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="rgba(255,255,255,.06)" stroke-width="0.15"/>`;
   }
 
-  // Data point circles + value labels
+  // Data points + bright white value labels
   let circles='',valLabels='';
   data.forEach((v,i)=>{
     const x=padL+(i/(data.length-1))*plotW;
     const y=padT+(1-(v-mn)/range)*plotH;
     const display=v>=10000?(v/1000).toFixed(0)+'k':v>=1000?Math.round(v).toLocaleString():v;
-    circles+=`<circle cx="${x}" cy="${y}" r="1.2" fill="${color}" stroke="var(--bg)" stroke-width="0.5" onmouseenter="showTip(event,'${labels[i]}: ${typeof v==='number'?v.toLocaleString():''}${unit}')" onmouseleave="hideTip()"/>`;
-    valLabels+=`<text x="${x}" y="${y-2.5}" text-anchor="middle" fill="var(--fg)" font-size="2.8" font-weight="600" font-family="var(--mono)">${display}</text>`;
+    circles+=`<circle cx="${x}" cy="${y}" r="1.5" fill="${color}" stroke="#0a0b10" stroke-width="0.6" onmouseenter="showTip(event,'${labels[i]}: ${typeof v==='number'?v.toLocaleString():''}${unit}')" onmouseleave="hideTip()"/>`;
+    valLabels+=`<text x="${x}" y="${y-3.2}" text-anchor="middle" fill="#ffffff" font-size="3.2" font-weight="700" font-family="var(--mono)">${display}</text>`;
   });
 
-  // X-axis labels
+  // X-axis labels + "年" unit at end
   let xLabels='';
   data.forEach((v,i)=>{
     const x=padL+(i/(data.length-1))*plotW;
-    xLabels+=`<text x="${x}" y="${H-1}" text-anchor="middle" fill="var(--fg4)" font-size="2.8" font-family="var(--mono)">${labels[i]}</text>`;
+    xLabels+=`<text x="${x}" y="${H-3}" text-anchor="middle" fill="#d0c8b8" font-size="3" font-weight="500" font-family="var(--mono)">${labels[i]}</text>`;
   });
+  xLabels+=`<text x="${W-1}" y="${H-3}" text-anchor="end" fill="#f4b942" font-size="2.8" font-weight="700" font-family="var(--mono)">年</text>`;
 
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
     ${yTicks}
-    <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <polyline points="${padL},${padT+(1-(data[0]-mn)/range)*plotH} ${pts.join(' ')} ${padL+(plotW)},${padT+(1-(data[data.length-1]-mn)/range)*plotH} ${padL+plotW},${padT+plotH} ${padL},${padT+plotH}" fill="${color}" fill-opacity="0.08"/>
+    <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="${padL},${padT+(1-(data[0]-mn)/range)*plotH} ${pts.join(' ')} ${padL+(plotW)},${padT+(1-(data[data.length-1]-mn)/range)*plotH} ${padL+plotW},${padT+plotH} ${padL},${padT+plotH}" fill="${color}" fill-opacity="0.1"/>
     ${circles}
     ${valLabels}
     ${xLabels}

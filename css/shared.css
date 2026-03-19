@@ -326,3 +326,14 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
 
 /* Pyramid zoom */
 .chart-zoom-modal .donut-ring{width:180px!important;height:180px!important}
+
+/* ===== BRIGHT & LARGE chart text ===== */
+.bar-yaxis span{font-size:.55rem!important;color:#d0c8b8!important;font-weight:500!important}
+.axis-unit{font-size:.5rem!important;color:#f4b942!important;font-weight:700!important;letter-spacing:.02em}
+.bar-label{font-size:.58rem!important;color:#d0c8b8!important;font-weight:500!important}
+.bar-val-top{font-family:var(--mono);font-size:.5rem;font-weight:700;color:#fff;text-align:center;display:block;margin-bottom:2px;min-height:14px;line-height:14px}
+.hbar-name{font-size:.72rem!important;color:#d0c8b8!important;font-weight:500!important}
+.hbar-val{font-size:.68rem!important;color:#fff!important;font-weight:600!important}
+.donut-label{color:#d0c8b8!important;font-size:.68rem!important}
+.donut-val{color:#fff!important;font-size:.7rem!important;font-weight:600!important}
+.donut-total{color:#fff!important;font-size:.78rem!important}
