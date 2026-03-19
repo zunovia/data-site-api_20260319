@@ -130,18 +130,42 @@ function showTip(e,text){
   if(!_tip){_tip=document.createElement('div');_tip.className='chart-tooltip';document.body.appendChild(_tip)}
   _tip.textContent=text;_tip.style.display='block';
   const r=e.target.getBoundingClientRect();
-  _tip.style.left=(r.left+r.width/2-_tip.offsetWidth/2)+'px';
-  _tip.style.top=(r.top-32)+'px';
+  const tipW=_tip.offsetWidth;
+  const tipH=_tip.offsetHeight;
+  // Position: prefer right side of element, fallback left if off-screen
+  let left=r.right+8;
+  if(left+tipW>window.innerWidth-10) left=r.left-tipW-8;
+  if(left<4) left=4;
+  let top=r.top+(r.height/2)-(tipH/2);
+  if(top<4) top=4;
+  if(top+tipH>window.innerHeight-4) top=window.innerHeight-tipH-4;
+  _tip.style.left=left+'px';
+  _tip.style.top=top+'px';
 }
 function hideTip(){if(_tip)_tip.style.display='none'}
 
-// === Zoom modal ===
+// === Zoom modal (prevents stacking — closes previous before opening) ===
+let _zoomOverlay=null;
 function zoomChart(el){
-  const src=el.closest('.chart-box');if(!src)return;
-  const ov=document.createElement('div');ov.className='modal-overlay';ov.onclick=()=>ov.remove();
-  const c=document.createElement('div');c.className='chart-zoom-modal';c.onclick=e=>e.stopPropagation();
-  c.innerHTML=`<button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>`;
+  // Close any existing zoom modal first
+  if(_zoomOverlay){_zoomOverlay.remove();_zoomOverlay=null}
+  // Hide tooltip
+  hideTip();
+
+  const src=el.closest('.chart-box')||el.closest('.hero-chart-box');
+  if(!src)return;
+
+  const ov=document.createElement('div');ov.className='modal-overlay';
+  ov.onclick=()=>{ov.remove();_zoomOverlay=null};
+  _zoomOverlay=ov;
+
+  const c=document.createElement('div');c.className='chart-zoom-modal';
+  c.onclick=e=>e.stopPropagation();
+  c.innerHTML=`<button class="modal-close" onclick="if(_zoomOverlay){_zoomOverlay.remove();_zoomOverlay=null}">×</button>`;
+
   const clone=src.cloneNode(true);
+  // Remove onclick from cloned elements to prevent re-triggering zoom
+  clone.querySelectorAll('[onclick*="zoomChart"]').forEach(el=>{el.removeAttribute('onclick');el.style.cursor='default'});
   clone.style.background='var(--surface)';clone.style.border='none';clone.style.padding='32px';
   clone.querySelectorAll('.bar-chart').forEach(bc=>{bc.style.height='320px'});
   clone.querySelectorAll('.hbar-track').forEach(t=>{t.style.height='14px'});
