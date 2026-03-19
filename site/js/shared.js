@@ -261,43 +261,73 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
 // ======================================================
 // POPULATION PYRAMID (age x gender vertical bar chart)
 // ======================================================
-function createPopPyramid(el){
-  // Data: age group, male (千人), female (千人) — 2024 estimates
-  const ages=['0-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80-84','85+'];
-  const male= [2050,2250,2550,2780,3000,3150,3050,3200,3600,4050,4300,3900,3550,3400,3850,3500,2600,2100];
-  const female=[1950,2150,2420,2650,2900,3050,3000,3200,3650,4100,4350,3950,3650,3600,4200,4050,3400,3800];
-  const mx=Math.max(...male,...female)*1.1;
+function createPopPyramid(el,optTitle){
+  // 2024年推計 年齢5歳階級別人口（万人）
+  const ages=['0〜4','5〜9','10〜14','15〜19','20〜24','25〜29','30〜34','35〜39','40〜44','45〜49','50〜54','55〜59','60〜64','65〜69','70〜74','75〜79','80〜84','85歳〜'];
+  const male=  [205.0,225.0,255.0,278.0,300.0,315.0,305.0,320.0,360.0,405.0,430.0,390.0,355.0,340.0,385.0,350.0,260.0,210.0];
+  const female=[195.0,215.0,242.0,265.0,290.0,305.0,300.0,320.0,365.0,410.0,435.0,395.0,365.0,360.0,420.0,405.0,340.0,380.0];
+  const maleTotal=male.reduce((s,v)=>s+v,0);
+  const femaleTotal=female.reduce((s,v)=>s+v,0);
+  const mx=Math.max(...male,...female);
 
-  const H=62,W=100,padL=1,padR=1,padT=2,padB=5;
+  const W=200,padL=28,padR=28,padT=14,padB=12;
   const midX=W/2;
-  const barMaxW=(W/2)-8; // max width per side
-  const barH=(H-padT-padB)/ages.length-0.3;
-  const gap=0.3;
+  const barMaxW=midX-padL-6;
+  const rows=ages.length;
+  const totalH=rows*6.2;
+  const H=padT+totalH+padB;
+  const barH=5;
+  const gap=1.2;
 
-  let bars='',lbls='';
+  // Gradient defs
+  let svg=`<defs>
+    <linearGradient id="maleGrad" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="femaleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#5f1e3a"/>
+    </linearGradient>
+  </defs>`;
+
+  // Title
+  const title=optTitle||'2024年 日本の人口構成';
+  svg+=`<text x="${midX}" y="5" text-anchor="middle" fill="var(--fg)" font-size="5" font-weight="700" font-family="var(--sans)">${title}</text>`;
+  // Subtotals
+  svg+=`<text x="${midX-30}" y="11" text-anchor="middle" fill="#3b82f6" font-size="3.2" font-weight="600" font-family="var(--sans)">男性計: ${maleTotal.toFixed(1)}万人</text>`;
+  svg+=`<text x="${midX+30}" y="11" text-anchor="middle" fill="#ec4899" font-size="3.2" font-weight="600" font-family="var(--sans)">女性計: ${femaleTotal.toFixed(1)}万人</text>`;
+
+  // Center line
+  svg+=`<line x1="${midX}" y1="${padT}" x2="${midX}" y2="${padT+totalH}" stroke="var(--fg4)" stroke-width="0.3"/>`;
+
   ages.forEach((age,i)=>{
     const y=padT+i*(barH+gap);
     const mW=(male[i]/mx)*barMaxW;
     const fW=(female[i]/mx)*barMaxW;
+    const cy=y+barH/2;
 
-    // Male bar (grows left from center)
-    bars+=`<rect x="${midX-3-mW}" y="${y}" width="${mW}" height="${barH}" rx="1" fill="var(--blue)" fill-opacity="0.75"
-      onmouseenter="showTip(event,'${age}歳 男性: ${male[i].toLocaleString()}千人')" onmouseleave="hideTip()"/>`;
-    // Female bar (grows right from center)
-    bars+=`<rect x="${midX+3}" y="${y}" width="${fW}" height="${barH}" rx="1" fill="var(--pink)" fill-opacity="0.75"
-      onmouseenter="showTip(event,'${age}歳 女性: ${female[i].toLocaleString()}千人')" onmouseleave="hideTip()"/>`;
-    // Age label
-    lbls+=`<text x="${midX}" y="${y+barH/2+1}" text-anchor="middle" fill="var(--fg3)" font-size="2" font-family="var(--mono)">${age}</text>`;
+    // Male bar (left, grows leftward from center)
+    svg+=`<rect x="${midX-3-mW}" y="${y}" width="${mW}" height="${barH}" rx="1.5" fill="url(#maleGrad)" fill-opacity="0.85"
+      onmouseenter="showTip(event,'${age}歳 男性: ${male[i].toFixed(1)}万人')" onmouseleave="hideTip()"/>`;
+    // Male value label (left of bar)
+    svg+=`<text x="${midX-4-mW}" y="${cy+1.5}" text-anchor="end" fill="#3b82f6" font-size="2.8" font-weight="500" font-family="var(--mono)">${male[i].toFixed(1)}</text>`;
+
+    // Female bar (right, grows rightward from center)
+    svg+=`<rect x="${midX+3}" y="${y}" width="${fW}" height="${barH}" rx="1.5" fill="url(#femaleGrad)" fill-opacity="0.85"
+      onmouseenter="showTip(event,'${age}歳 女性: ${female[i].toFixed(1)}万人')" onmouseleave="hideTip()"/>`;
+    // Female value label (right of bar)
+    svg+=`<text x="${midX+4+fW}" y="${cy+1.5}" text-anchor="start" fill="#ec4899" font-size="2.8" font-weight="500" font-family="var(--mono)">${female[i].toFixed(1)}</text>`;
+
+    // Age label (center)
+    svg+=`<text x="${midX}" y="${cy+1.3}" text-anchor="middle" fill="var(--fg2)" font-size="2.6" font-weight="500" font-family="var(--sans)">${age}</text>`;
   });
 
-  // Legend
-  const legend=`
-    <text x="${midX-20}" y="${H-0.5}" text-anchor="middle" fill="var(--blue)" font-size="2.5" font-weight="600" font-family="var(--sans)">← 男性</text>
-    <text x="${midX+20}" y="${H-0.5}" text-anchor="middle" fill="var(--pink)" font-size="2.5" font-weight="600" font-family="var(--sans)">女性 →</text>
-  `;
+  // Unit label
+  svg+=`<text x="${W-2}" y="${H-2}" text-anchor="end" fill="var(--fg4)" font-size="2.5" font-family="var(--sans)">単位: 万人</text>`;
+  // Arrow legends
+  svg+=`<text x="${padL+5}" y="${H-2}" text-anchor="start" fill="#3b82f6" font-size="2.8" font-weight="600" font-family="var(--sans)">← 男性</text>`;
+  svg+=`<text x="${W-padR-5}" y="${H-2}" text-anchor="end" fill="#ec4899" font-size="2.8" font-weight="600" font-family="var(--sans)">女性 →</text>`;
 
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
-    <line x1="${midX}" y1="${padT}" x2="${midX}" y2="${H-padB}" stroke="var(--border2)" stroke-width="0.2"/>
-    ${bars}${lbls}${legend}
-  </svg>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">${svg}</svg>`;
 }

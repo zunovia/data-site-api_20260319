@@ -318,3 +318,11 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
 /* Zoom modal SVG scaling */
 .chart-zoom-modal svg{max-height:400px}
 .chart-zoom-modal .hero-chart-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:20px}
+
+/* ===== Hero with tall pyramid ===== */
+.hero-compact{min-height:100vh;max-height:none;height:auto}
+.hero-compact .hero-content{padding-top:80px;padding-bottom:8px}
+.hero-bottom{padding-bottom:24px}
+
+/* Pyramid zoom */
+.chart-zoom-modal .donut-ring{width:180px!important;height:180px!important}
