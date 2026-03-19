@@ -237,8 +237,8 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
   const mx=maxV||Math.max(...data);
   const mn=Math.min(...data)*0.95;
   const range=mx-mn;
-  const W=100,H=60;
-  const padL=10,padR=3,padT=8,padB=13;
+  const W=100,H=64;
+  const padL=10,padR=5,padT=10,padB=15;
   const plotW=W-padL-padR, plotH=H-padT-padB;
 
   const pts=data.map((v,i)=>{
@@ -249,7 +249,7 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
 
   // Y-axis ticks + unit label at top
   let yTicks='';
-  if(unit) yTicks+=`<text x="${padL-1}" y="${padT-5}" text-anchor="end" fill="#f4b942" font-size="3" font-weight="700" font-family="var(--mono)">(${unit})</text>`;
+  if(unit) yTicks+=`<text x="${padL+plotW/2}" y="3" text-anchor="middle" fill="#f4b942" font-size="2.8" font-weight="600" font-family="var(--mono)">(${unit})</text>`;
   for(let i=0;i<=2;i++){
     const v=mn+range*(i/2);
     const y=padT+(1-i/2)*plotH;
@@ -274,7 +274,7 @@ function createLineChart(el,data,labels,maxV,color,unit=''){
     const x=padL+(i/(data.length-1))*plotW;
     xLabels+=`<text x="${x}" y="${H-3}" text-anchor="middle" fill="#d0c8b8" font-size="3" font-weight="500" font-family="var(--mono)">${labels[i]}</text>`;
   });
-  xLabels+=`<text x="${W-1}" y="${H-3}" text-anchor="end" fill="#f4b942" font-size="2.8" font-weight="700" font-family="var(--mono)">（年）</text>`;
+  xLabels+=`<text x="${W-1}" y="${H}" text-anchor="end" fill="#f4b942" font-size="2.5" font-weight="600" font-family="var(--mono)">（年）</text>`;
 
   el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
     ${yTicks}
