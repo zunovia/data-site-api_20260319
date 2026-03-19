@@ -307,3 +307,14 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
 .donut-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
 .donut-label{flex:1;color:var(--fg2)}
 .donut-val{font-family:var(--mono);font-weight:500;color:var(--fg)}
+
+/* ===== SVG LINE CHART ===== */
+.chart-box svg{display:block}
+.chart-box svg circle{transition:r .15s,fill-opacity .15s;cursor:pointer}
+.chart-box svg circle:hover{r:2;fill-opacity:1}
+.chart-box svg rect{transition:fill-opacity .15s;cursor:pointer}
+.chart-box svg rect:hover{fill-opacity:1!important}
+
+/* Zoom modal SVG scaling */
+.chart-zoom-modal svg{max-height:400px}
+.chart-zoom-modal .hero-chart-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:20px}

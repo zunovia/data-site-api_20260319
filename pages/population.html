@@ -10,10 +10,20 @@
   <div class="stat-card"><span class="stat-card-label">高齢化率</span><span class="stat-card-value">29.3<small>%</small></span></div>
   <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--blue)">3,743<small>千人</small></span></div>
 </div>
+
+<!-- Charts row 1: Pyramid + Line -->
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>人口推移</h4><div id="c1"></div></div>
-  <div class="chart-box"><h4>高齢化率推移</h4><div id="c2"></div></div>
+  <div class="chart-box"><h4>年齢別人口ピラミッド（男女別）2024</h4><div id="pyramid"></div></div>
+  <div class="chart-box"><h4>総人口推移（千人）— 折れ線グラフ</h4><div id="pop-line"></div></div>
 </div>
+
+<!-- Charts row 2: Rankings -->
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>高齢化率推移（%）</h4><div id="aging-line"></div></div>
+  <div class="chart-box"><h4>年齢3区分別人口推移（百万人）</h4><div id="age3-line"></div></div>
+</div>
+
+<!-- Charts row 3: Prefecture rankings with links -->
 <div class="chart-row fade-in">
   <div class="chart-box"><h4>人口 Top 10 — クリックで詳細</h4><div id="c3"></div></div>
   <div class="chart-box"><h4>高齢化率 Top 10 — クリックで詳細</h4><div id="c4"></div></div>
@@ -21,8 +31,11 @@
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createBarChart(document.getElementById('c1'),[126926,127768,128057,127095,126146,123802],['00','05','10','15','20','24'],130000,'var(--coral)','千人');
-createBarChart(document.getElementById('c2'),[17.4,20.2,23.0,26.6,28.6,29.3],['00','05','10','15','20','24'],35,'var(--red)','%');
+createPopPyramid(document.getElementById('pyramid'));
+createLineChart(document.getElementById('pop-line'),[126926,127768,128057,127095,126933,126706,126443,126167,126146,125502,125124,124352,123802],['00','02','04','06','08','10','12','14','16','18','20','22','24'],129000,'var(--coral)','千人');
+createLineChart(document.getElementById('aging-line'),[17.4,20.2,23.0,26.6,27.7,28.1,28.6,29.1,29.3],['00','05','10','15','18','20','22','23','24'],32,'var(--red)','%');
+createLineChart(document.getElementById('age3-line'),[86.4,84.1,81.0,77.3,75.1,74.4,73.7,73.9,73.7],['00','05','10','15','18','20','22','23','24'],90,'var(--blue)','百万人');
+
 createHBar(document.getElementById('c3'),[
   {name:'東京都',value:14048,link:"showPrefModal('東京都')"},
   {name:'神奈川県',value:9232,link:"showPrefModal('神奈川県')"},

@@ -202,3 +202,102 @@ function createHBar(el,items,color,maxV){
 
 // === Init ===
 document.addEventListener('DOMContentLoaded',()=>{initScrollReveal();checkAPI()});
+
+// ======================================================
+// LINE CHART with large value labels
+// ======================================================
+function createLineChart(el,data,labels,maxV,color,unit=''){
+  const mx=maxV||Math.max(...data);
+  const mn=Math.min(...data)*0.95;
+  const range=mx-mn;
+  const W=100,H=55; // viewBox percentages
+  const padL=8,padR=2,padT=6,padB=10;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+
+  // Build SVG polyline points
+  const pts=data.map((v,i)=>{
+    const x=padL+(i/(data.length-1))*plotW;
+    const y=padT+(1-(v-mn)/range)*plotH;
+    return`${x},${y}`;
+  });
+
+  // Y-axis ticks (3 lines)
+  let yTicks='';
+  for(let i=0;i<=2;i++){
+    const v=mn+range*(i/2);
+    const y=padT+(1-i/2)*plotH;
+    const label=v>=10000?(v/1000).toFixed(0)+'k':v>=1000?Math.round(v).toLocaleString():v.toFixed(1);
+    yTicks+=`<text x="${padL-1}" y="${y+1.2}" text-anchor="end" fill="var(--fg4)" font-size="3" font-family="var(--mono)">${label}</text>`;
+    yTicks+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="var(--border)" stroke-width="0.2"/>`;
+  }
+
+  // Data point circles + value labels
+  let circles='',valLabels='';
+  data.forEach((v,i)=>{
+    const x=padL+(i/(data.length-1))*plotW;
+    const y=padT+(1-(v-mn)/range)*plotH;
+    const display=v>=10000?(v/1000).toFixed(0)+'k':v>=1000?Math.round(v).toLocaleString():v;
+    circles+=`<circle cx="${x}" cy="${y}" r="1.2" fill="${color}" stroke="var(--bg)" stroke-width="0.5" onmouseenter="showTip(event,'${labels[i]}: ${typeof v==='number'?v.toLocaleString():''}${unit}')" onmouseleave="hideTip()"/>`;
+    valLabels+=`<text x="${x}" y="${y-2.5}" text-anchor="middle" fill="var(--fg)" font-size="2.8" font-weight="600" font-family="var(--mono)">${display}</text>`;
+  });
+
+  // X-axis labels
+  let xLabels='';
+  data.forEach((v,i)=>{
+    const x=padL+(i/(data.length-1))*plotW;
+    xLabels+=`<text x="${x}" y="${H-1}" text-anchor="middle" fill="var(--fg4)" font-size="2.8" font-family="var(--mono)">${labels[i]}</text>`;
+  });
+
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
+    ${yTicks}
+    <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="${padL},${padT+(1-(data[0]-mn)/range)*plotH} ${pts.join(' ')} ${padL+(plotW)},${padT+(1-(data[data.length-1]-mn)/range)*plotH} ${padL+plotW},${padT+plotH} ${padL},${padT+plotH}" fill="${color}" fill-opacity="0.08"/>
+    ${circles}
+    ${valLabels}
+    ${xLabels}
+  </svg>`;
+}
+
+// ======================================================
+// POPULATION PYRAMID (age x gender vertical bar chart)
+// ======================================================
+function createPopPyramid(el){
+  // Data: age group, male (千人), female (千人) — 2024 estimates
+  const ages=['0-4','5-9','10-14','15-19','20-24','25-29','30-34','35-39','40-44','45-49','50-54','55-59','60-64','65-69','70-74','75-79','80-84','85+'];
+  const male= [2050,2250,2550,2780,3000,3150,3050,3200,3600,4050,4300,3900,3550,3400,3850,3500,2600,2100];
+  const female=[1950,2150,2420,2650,2900,3050,3000,3200,3650,4100,4350,3950,3650,3600,4200,4050,3400,3800];
+  const mx=Math.max(...male,...female)*1.1;
+
+  const H=62,W=100,padL=1,padR=1,padT=2,padB=5;
+  const midX=W/2;
+  const barMaxW=(W/2)-8; // max width per side
+  const barH=(H-padT-padB)/ages.length-0.3;
+  const gap=0.3;
+
+  let bars='',lbls='';
+  ages.forEach((age,i)=>{
+    const y=padT+i*(barH+gap);
+    const mW=(male[i]/mx)*barMaxW;
+    const fW=(female[i]/mx)*barMaxW;
+
+    // Male bar (grows left from center)
+    bars+=`<rect x="${midX-3-mW}" y="${y}" width="${mW}" height="${barH}" rx="1" fill="var(--blue)" fill-opacity="0.75"
+      onmouseenter="showTip(event,'${age}歳 男性: ${male[i].toLocaleString()}千人')" onmouseleave="hideTip()"/>`;
+    // Female bar (grows right from center)
+    bars+=`<rect x="${midX+3}" y="${y}" width="${fW}" height="${barH}" rx="1" fill="var(--pink)" fill-opacity="0.75"
+      onmouseenter="showTip(event,'${age}歳 女性: ${female[i].toLocaleString()}千人')" onmouseleave="hideTip()"/>`;
+    // Age label
+    lbls+=`<text x="${midX}" y="${y+barH/2+1}" text-anchor="middle" fill="var(--fg3)" font-size="2" font-family="var(--mono)">${age}</text>`;
+  });
+
+  // Legend
+  const legend=`
+    <text x="${midX-20}" y="${H-0.5}" text-anchor="middle" fill="var(--blue)" font-size="2.5" font-weight="600" font-family="var(--sans)">← 男性</text>
+    <text x="${midX+20}" y="${H-0.5}" text-anchor="middle" fill="var(--pink)" font-size="2.5" font-weight="600" font-family="var(--sans)">女性 →</text>
+  `;
+
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">
+    <line x1="${midX}" y1="${padT}" x2="${midX}" y2="${H-padB}" stroke="var(--border2)" stroke-width="0.2"/>
+    ${bars}${lbls}${legend}
+  </svg>`;
+}
