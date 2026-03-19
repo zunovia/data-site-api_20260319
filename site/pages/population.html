@@ -3,7 +3,7 @@
 <script src="../js/shared.js"></script>
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Population</p><h1 class="page-title">人口</h1><p class="page-desc">47都道府県の人口・高齢化率・人口密度</p></div></section>
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Population</p><h1 class="page-title">人口</h1><p class="page-desc">都道府県名をクリックすると詳細情報が表示されます</p></div></section>
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">総人口</span><span class="stat-card-value" style="color:var(--coral)">123,802<small>千人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">前年比</span><span class="stat-card-value" style="color:var(--red)">▼550<small>千人</small></span></div>
@@ -11,19 +11,31 @@
   <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--blue)">3,743<small>千人</small></span></div>
 </div>
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>人口推移（千人）</h4><div id="c1"></div></div>
-  <div class="chart-box"><h4>高齢化率推移（%）</h4><div id="c2"></div></div>
+  <div class="chart-box"><h4>人口推移</h4><div id="c1"></div></div>
+  <div class="chart-box"><h4>高齢化率推移</h4><div id="c2"></div></div>
 </div>
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>人口 Top 10</h4><div id="c3"></div></div>
-  <div class="chart-box"><h4>高齢化率 Top 10</h4><div id="c4"></div></div>
+  <div class="chart-box"><h4>人口 Top 10 — クリックで詳細</h4><div id="c3"></div></div>
+  <div class="chart-box"><h4>高齢化率 Top 10 — クリックで詳細</h4><div id="c4"></div></div>
 </div>
 <script>document.write(footerHTML())</script>
 </div>
 <script>
 createBarChart(document.getElementById('c1'),[126926,127768,128057,127095,126146,123802],['00','05','10','15','20','24'],130000,'var(--coral)');
 createBarChart(document.getElementById('c2'),[17.4,20.2,23.0,26.6,28.6,29.3],['00','05','10','15','20','24'],35,'var(--red)');
-createHBar(document.getElementById('c3'),[{name:'東京都',value:14048},{name:'神奈川県',value:9232},{name:'大阪府',value:8784},{name:'愛知県',value:7495},{name:'埼玉県',value:7337}],'var(--coral)',15000);
-createHBar(document.getElementById('c4'),[{name:'秋田県',value:39.0},{name:'高知県',value:36.1},{name:'島根県',value:35.4},{name:'山形県',value:35.2},{name:'岩手県',value:35.0}],'var(--red)',42);
+createHBar(document.getElementById('c3'),[
+  {name:'東京都',value:14048,link:"showPrefModal('東京都')"},
+  {name:'神奈川県',value:9232,link:"showPrefModal('神奈川県')"},
+  {name:'大阪府',value:8784,link:"showPrefModal('大阪府')"},
+  {name:'愛知県',value:7495,link:"showPrefModal('愛知県')"},
+  {name:'埼玉県',value:7337,link:"showPrefModal('埼玉県')"}
+],'var(--coral)',15000);
+createHBar(document.getElementById('c4'),[
+  {name:'秋田県',value:39.0,link:"showPrefModal('秋田県')"},
+  {name:'高知県',value:36.1,link:"showPrefModal('高知県')"},
+  {name:'島根県',value:35.4,link:"showPrefModal('島根県')"},
+  {name:'山形県',value:35.2,link:"showPrefModal('山形県')"},
+  {name:'岩手県',value:35.0,link:"showPrefModal('岩手県')"}
+],'var(--red)',42);
 initScrollReveal();checkAPI();
 </script></body></html>

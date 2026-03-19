@@ -3,17 +3,28 @@
 <script src="../js/shared.js"></script>
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Income</p><h1 class="page-title">年収</h1><p class="page-desc">都道府県別の平均年収（賃金センサス 2023年）</p></div></section>
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Income</p><h1 class="page-title">年収</h1><p class="page-desc">都道府県名クリックで自治体詳細を表示</p></div></section>
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">全国平均</span><span class="stat-card-value" style="color:var(--blue)">458<small>万円</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">最高（東京）</span><span class="stat-card-value" style="color:var(--blue)">620<small>万円</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">地域格差</span><span class="stat-card-value">~200<small>万円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">最高</span><span class="stat-card-value" style="color:var(--blue)">620<small>万円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">格差</span><span class="stat-card-value">~200<small>万円</small></span></div>
 </div>
-<div class="chart-box fade-in" style="margin-bottom:16px"><h4>平均年収 Top 10</h4><div id="c1"></div></div>
-<div class="info-card fade-in"><h3>データについて</h3><p>厚生労働省「賃金構造基本統計調査」をもとに算出。転職・就活で最も引用される統計の一つ。</p><p class="info-source">出典: 厚生労働省「賃金構造基本統計調査」(2023年)</p></div>
+<div class="chart-box fade-in" style="margin-bottom:16px"><h4>平均年収 Top 10 — クリックで詳細</h4><div id="c1"></div></div>
+<div class="info-card fade-in"><h3>データについて</h3><p>厚生労働省「賃金構造基本統計調査」をもとに算出。</p><p class="info-source">出典: 厚生労働省（2023年）</p></div>
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createHBar(document.getElementById('c1'),[{name:'東京都',value:620},{name:'神奈川県',value:544},{name:'大阪府',value:531},{name:'愛知県',value:519},{name:'京都府',value:502},{name:'兵庫県',value:495},{name:'埼玉県',value:490},{name:'千葉県',value:487},{name:'福岡県',value:463},{name:'広島県',value:459}],'var(--blue)',650);
+createHBar(document.getElementById('c1'),[
+  {name:'東京都',value:620,link:"showPrefModal('東京都')"},
+  {name:'神奈川県',value:544,link:"showPrefModal('神奈川県')"},
+  {name:'大阪府',value:531,link:"showPrefModal('大阪府')"},
+  {name:'愛知県',value:519,link:"showPrefModal('愛知県')"},
+  {name:'京都府',value:502,link:"showPrefModal('京都府')"},
+  {name:'兵庫県',value:495,link:"showPrefModal('兵庫県')"},
+  {name:'埼玉県',value:490,link:"showPrefModal('埼玉県')"},
+  {name:'千葉県',value:487,link:"showPrefModal('千葉県')"},
+  {name:'福岡県',value:463,link:"showPrefModal('福岡県')"},
+  {name:'広島県',value:459,link:"showPrefModal('広島県')"}
+],'var(--blue)',650);
 initScrollReveal();checkAPI();
 </script></body></html>

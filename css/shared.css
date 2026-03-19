@@ -217,3 +217,55 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
   .hbar-name{min-width:72px;font-size:.6rem}
   .chart-row{grid-template-columns:1fr}
 }
+
+/* ===== WIDE MODAL ===== */
+.modal-wide{max-width:560px}
+.modal-header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}
+.modal-sub{font-size:.7rem;color:var(--fg3);margin-top:2px}
+.modal-governor{display:flex;align-items:center;gap:10px;text-align:right}
+.governor-photo{width:48px;height:48px;border-radius:50%;background:var(--bg3);background-size:cover;background-position:center;flex-shrink:0;border:2px solid var(--border2)}
+.governor-photo.has-photo{border-color:var(--coral)}
+.modal-gov-label{font-size:.55rem;color:var(--fg4);display:block;letter-spacing:.06em}
+.modal-gov-name{font-size:.82rem;font-weight:600}
+.modal-grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:480px){.modal-grid-3{grid-template-columns:repeat(2,1fr)}}
+.modal-wiki{margin:14px 0 10px}
+.wiki-extract{font-size:.72rem;color:var(--fg3);line-height:1.8;max-height:120px;overflow-y:auto}
+.modal-loading{font-size:.68rem;color:var(--fg4);animation:pulse 1.5s ease infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.modal-links{display:flex;gap:8px;margin:12px 0 8px}
+.modal-link{font-size:.65rem;font-weight:500;color:var(--coral);padding:5px 10px;border:1px solid rgba(232,107,71,.2);border-radius:var(--r-sm);transition:all .25s}
+.modal-link:hover{background:rgba(232,107,71,.1)}
+
+/* Person modal */
+.person-header{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.person-photo{width:72px;height:72px;border-radius:50%;background:var(--bg3);background-size:cover;background-position:center top;flex-shrink:0;border:2px solid var(--border2)}
+.person-no-photo{display:grid;place-items:center}
+.person-loading{text-align:center;padding:32px}
+
+/* Pref hyperlink */
+.pref-link{color:var(--coral);text-decoration:none;border-bottom:1px dotted rgba(232,107,71,.3);transition:all .2s;cursor:pointer}
+.pref-link:hover{color:var(--fg);border-bottom-color:var(--fg)}
+
+/* ===== HERO COMPACT (fits viewport) ===== */
+.hero-compact{min-height:auto;height:100vh;max-height:100vh}
+.hero-compact .hero-content{padding:20px 24px}
+.hero-bottom{margin-top:auto;padding:0 32px 20px;position:relative;z-index:2}
+.hero-chart-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.hero-chart-row{grid-template-columns:1fr}}
+.hero-chart-box{background:rgba(13,15,20,.7);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;backdrop-filter:blur(8px)}
+.hero-chart-box h4{font-size:.6rem;font-weight:500;color:var(--fg3);margin-bottom:8px;letter-spacing:.03em}
+.hero-stat-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;justify-content:center}
+.hero-stat{background:rgba(13,15,20,.6);border:1px solid var(--border);border-radius:var(--r-sm);padding:6px 12px;text-align:center;backdrop-filter:blur(4px)}
+.hero-stat-label{font-size:.48rem;color:var(--fg4);display:block;letter-spacing:.04em;text-transform:uppercase}
+.hero-stat-val{font-weight:700;font-size:.88rem;line-height:1.2}
+.hero-stat-val small{font-size:.5rem;font-weight:400;color:var(--fg3);margin-left:1px}
+
+/* Clickable governor list */
+.gov-list{display:flex;flex-direction:column;gap:3px}
+.gov-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:var(--r-sm);cursor:pointer;transition:background .2s;border:1px solid transparent}
+.gov-item:hover{background:var(--surface2);border-color:var(--border2)}
+.gov-item .gov-thumb{width:32px;height:32px;border-radius:50%;background:var(--bg3);background-size:cover;background-position:center;flex-shrink:0}
+.gov-item .gov-info{flex:1}
+.gov-item .gov-pref{font-size:.68rem;color:var(--fg3)}
+.gov-item .gov-name{font-size:.78rem;font-weight:600}

@@ -3,24 +3,68 @@
 <script src="../js/shared.js"></script>
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Politics</p><h1 class="page-title">政治・選挙</h1><p class="page-desc">国会議員・知事・首長データ</p></div></section>
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Politics</p><h1 class="page-title">政治・選挙</h1><p class="page-desc">名前をクリックするとWikipediaから詳細と写真を取得します</p></div></section>
+
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">衆議院</span><span class="stat-card-value" style="color:var(--purple)">465<small>人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">参議院</span><span class="stat-card-value" style="color:var(--purple)">248<small>人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">女性議員</span><span class="stat-card-value" style="color:var(--pink)">16.0<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">女性知事</span><span class="stat-card-value" style="color:var(--pink)">3<small>/47</small></span></div>
   <div class="stat-card"><span class="stat-card-label">市区町村</span><span class="stat-card-value">1,741</span></div>
-  <div class="stat-card"><span class="stat-card-label">女性首長</span><span class="stat-card-value">56<small>(3.2%)</small></span></div>
 </div>
+
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>政党別議席数（衆院 2024）</h4><div id="c1"></div></div>
+  <div class="chart-box"><h4>政党別議席（衆院 2024）— クリックで党首詳細</h4><div id="c1"></div></div>
   <div class="chart-box"><h4>衆院選投票率推移</h4><div id="c2"></div></div>
 </div>
-<div class="info-card fade-in"><h3>市区町村首長</h3><p>市792・町743・村183・特別区23。知事平均年齢60.2歳、平均在任2.8期。</p><p class="info-source">出典: 総務省 / 衆議院・参議院</p></div>
+
+<!-- Governor list (clickable) -->
+<section class="section-spacer fade-in">
+  <h3 class="sub-title">都道府県知事一覧 — クリックで詳細</h3>
+  <div class="gov-list" id="gov-list"></div>
+</section>
+
+<div class="info-card fade-in"><h3>市区町村首長</h3><p>全国1,741市区町村（市792・町743・村183・特別区23）。女性首長56人(3.2%)。</p><p class="info-source">出典: 総務省 / 衆議院・参議院</p></div>
+
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createHBar(document.getElementById('c1'),[{name:'自民党',value:191},{name:'立憲民主',value:148},{name:'維新',value:38},{name:'国民民主',value:28},{name:'公明党',value:24},{name:'れいわ',value:9},{name:'共産党',value:8}],'var(--purple)',200);
+// Party chart with clickable leaders
+createHBar(document.getElementById('c1'),[
+  {name:'自民党',value:191,link:"showPersonModal('石破茂','自由民主党 総裁')"},
+  {name:'立憲民主',value:148,link:"showPersonModal('野田佳彦','立憲民主党 代表')"},
+  {name:'維新',value:38,link:"showPersonModal('馬場伸幸','日本維新の会 代表')"},
+  {name:'国民民主',value:28,link:"showPersonModal('玉木雄一郎','国民民主党 代表')"},
+  {name:'公明党',value:24,link:"showPersonModal('斉藤鉄夫','公明党 代表')"},
+  {name:'れいわ',value:9,link:"showPersonModal('山本太郎','れいわ新選組 代表')"},
+  {name:'共産党',value:8,link:"showPersonModal('田村智子','日本共産党 委員長')"}
+],'var(--purple)',200);
+
 createBarChart(document.getElementById('c2'),[67.5,69.3,59.3,52.7,53.7,55.9,53.8],['05','09','12','14','17','21','24'],75,'var(--purple)');
+
+// Build governor list (first 20 for performance, clickable)
+const govData=[
+  ['北海道','鈴木直道'],['青森県','宮下宗一郎'],['岩手県','達増拓也'],['宮城県','村井嘉浩'],
+  ['秋田県','佐竹敬久'],['山形県','吉村美栄子'],['福島県','内堀雅雄'],['茨城県','大井川和彦'],
+  ['栃木県','福田富一'],['群馬県','山本一太'],['埼玉県','大野元裕'],['千葉県','熊谷俊人'],
+  ['東京都','小池百合子'],['神奈川県','黒岩祐治'],['新潟県','花角英世'],['富山県','新田八朗'],
+  ['石川県','馳浩'],['福井県','杉本達治'],['山梨県','長崎幸太郎'],['長野県','阿部守一'],
+  ['岐阜県','古田肇'],['静岡県','鈴木康友'],['愛知県','大村秀章'],['三重県','一見勝之'],
+  ['滋賀県','三日月大造'],['京都府','西脇隆俊'],['大阪府','吉村洋文'],['兵庫県','斎藤元彦'],
+  ['奈良県','山下真'],['和歌山県','岸本周平'],['鳥取県','平井伸治'],['島根県','丸山達也'],
+  ['岡山県','伊原木隆太'],['広島県','湯崎英彦'],['山口県','村岡嗣政'],['徳島県','後藤田正純'],
+  ['香川県','池田豊人'],['愛媛県','中村時広'],['高知県','濵田省司'],['福岡県','服部誠太郎'],
+  ['佐賀県','山口祥義'],['長崎県','大石賢吾'],['熊本県','木村敬'],['大分県','佐藤樹一郎'],
+  ['宮崎県','河野俊嗣'],['鹿児島県','塩田康一'],['沖縄県','玉城デニー']
+];
+
+const govList=document.getElementById('gov-list');
+govData.forEach(([pref,gov])=>{
+  const el=document.createElement('div');
+  el.className='gov-item';
+  el.onclick=()=>showPersonModal(gov,`${pref} 知事`);
+  el.innerHTML=`<div class="gov-thumb" id="gt-${pref}"></div><div class="gov-info"><span class="gov-pref">${pref}</span><span class="gov-name">${gov}</span></div>`;
+  govList.appendChild(el);
+});
+
 initScrollReveal();checkAPI();
 </script></body></html>
