@@ -1,25 +1,19 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>年収 — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
 <div class="page">
 <script src="../js/shared.js"></script>
-<script>document.write(headerHTML('income'))</script>
+<script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Income</p><h1 class="page-title">年収</h1><p class="page-desc">都道府県別の平均年収ランキング（賃金構造基本統計調査 2023年）</p></div></section>
-
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Income</p><h1 class="page-title">年収</h1><p class="page-desc">都道府県別の平均年収（賃金センサス 2023年）</p></div></section>
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">全国平均</span><span class="stat-card-value" style="color:var(--accent2)">458<small>万円</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">最高（東京都）</span><span class="stat-card-value" style="color:var(--accent2)">620<small>万円</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">格差</span><span class="stat-card-value">約200<small>万円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">全国平均</span><span class="stat-card-value" style="color:var(--blue)">458<small>万円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">最高（東京）</span><span class="stat-card-value" style="color:var(--blue)">620<small>万円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">地域格差</span><span class="stat-card-value">~200<small>万円</small></span></div>
 </div>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">都道府県別 平均年収 Top 10</h3><div id="income-ranking"></div></section>
-
-<div class="info-card fade-in"><h3>年収データについて</h3><p>厚生労働省「賃金構造基本統計調査（賃金センサス）」をもとに「きまって支給する現金給与額×12＋年間賞与」で算出。転職サイトや就活メディアで最も引用される統計データの一つです。</p><p class="info-source">出典: 厚生労働省「賃金構造基本統計調査」(2023年)</p></div>
-
+<div class="chart-box fade-in" style="margin-bottom:16px"><h4>平均年収 Top 10</h4><div id="c1"></div></div>
+<div class="info-card fade-in"><h3>データについて</h3><p>厚生労働省「賃金構造基本統計調査」をもとに算出。転職・就活で最も引用される統計の一つ。</p><p class="info-source">出典: 厚生労働省「賃金構造基本統計調査」(2023年)</p></div>
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-const inc=[["東京都",620],["神奈川県",544],["大阪府",531],["愛知県",519],["京都府",502],["兵庫県",495],["埼玉県",490],["千葉県",487],["福岡県",463],["広島県",459]];
-createHBar(document.getElementById('income-ranking'), inc.map(p=>({name:p[0],value:p[1]})), 'var(--accent2)', 650);
-initScrollReveal(); checkAPI();
+createHBar(document.getElementById('c1'),[{name:'東京都',value:620},{name:'神奈川県',value:544},{name:'大阪府',value:531},{name:'愛知県',value:519},{name:'京都府',value:502},{name:'兵庫県',value:495},{name:'埼玉県',value:490},{name:'千葉県',value:487},{name:'福岡県',value:463},{name:'広島県',value:459}],'var(--blue)',650);
+initScrollReveal();checkAPI();
 </script></body></html>

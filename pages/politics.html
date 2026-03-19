@@ -1,32 +1,26 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>政治・選挙 — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
 <div class="page">
 <script src="../js/shared.js"></script>
-<script>document.write(headerHTML('politics'))</script>
+<script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Politics & Election</p><h1 class="page-title">政治・選挙</h1><p class="page-desc">国会議員・都道府県知事・市区町村首長のデータ</p></div></section>
-
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Politics</p><h1 class="page-title">政治・選挙</h1><p class="page-desc">国会議員・知事・首長データ</p></div></section>
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">衆議院定数</span><span class="stat-card-value" style="color:var(--accent4)">465<small>人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">参議院定数</span><span class="stat-card-value" style="color:var(--accent4)">248<small>人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">女性議員比率</span><span class="stat-card-value" style="color:var(--accent5)">16.0<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">都道府県知事</span><span class="stat-card-value">47<small>人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">女性知事</span><span class="stat-card-value" style="color:var(--accent5)">3<small>人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">市区町村数</span><span class="stat-card-value" style="color:var(--accent2)">1,741</span></div>
-  <div class="stat-card"><span class="stat-card-label">女性首長</span><span class="stat-card-value">56<small>人(3.2%)</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">知事平均年齢</span><span class="stat-card-value">60.2<small>歳</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">衆議院</span><span class="stat-card-value" style="color:var(--purple)">465<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">参議院</span><span class="stat-card-value" style="color:var(--purple)">248<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">女性議員</span><span class="stat-card-value" style="color:var(--pink)">16.0<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">女性知事</span><span class="stat-card-value" style="color:var(--pink)">3<small>/47</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">市区町村</span><span class="stat-card-value">1,741</span></div>
+  <div class="stat-card"><span class="stat-card-label">女性首長</span><span class="stat-card-value">56<small>(3.2%)</small></span></div>
 </div>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">衆議院 政党別議席数（2024年選挙後）</h3><div id="party-chart"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">衆院選 投票率の推移</h3><div id="turnout-chart"></div></section>
-
-<div class="info-card fade-in"><h3>市区町村首長</h3><p>全国1,741市区町村（市792・町743・村183・特別区23）。女性首長は56人で全体の3.2%にとどまる。首長選挙の平均投票率は50.3%。</p><p>知事の年代分布: 40代5人、50代15人、60代18人、70代以上9人。平均在任期数は2.8期。</p><p class="info-source">出典: 総務省「地方公共団体の議会の議員及び長の所属党派別人員調」/ 衆議院・参議院</p></div>
-
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>政党別議席数（衆院 2024）</h4><div id="c1"></div></div>
+  <div class="chart-box"><h4>衆院選投票率推移</h4><div id="c2"></div></div>
+</div>
+<div class="info-card fade-in"><h3>市区町村首長</h3><p>市792・町743・村183・特別区23。知事平均年齢60.2歳、平均在任2.8期。</p><p class="info-source">出典: 総務省 / 衆議院・参議院</p></div>
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createHBar(document.getElementById('party-chart'),[{name:'自由民主党',value:191},{name:'立憲民主党',value:148},{name:'日本維新の会',value:38},{name:'国民民主党',value:28},{name:'公明党',value:24},{name:'れいわ新選組',value:9},{name:'日本共産党',value:8},{name:'その他',value:19}],'var(--accent4)',200);
-createBarChart(document.getElementById('turnout-chart'),[67.5,69.3,59.3,52.7,53.7,55.9,53.8],['2005','2009','2012','2014','2017','2021','2024'],75,'var(--accent4)');
-initScrollReveal(); checkAPI();
+createHBar(document.getElementById('c1'),[{name:'自民党',value:191},{name:'立憲民主',value:148},{name:'維新',value:38},{name:'国民民主',value:28},{name:'公明党',value:24},{name:'れいわ',value:9},{name:'共産党',value:8}],'var(--purple)',200);
+createBarChart(document.getElementById('c2'),[67.5,69.3,59.3,52.7,53.7,55.9,53.8],['05','09','12','14','17','21','24'],75,'var(--purple)');
+initScrollReveal();checkAPI();
 </script></body></html>

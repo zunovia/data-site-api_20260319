@@ -1,36 +1,31 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>NPO・寄付 — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
 <div class="page">
 <script src="../js/shared.js"></script>
-<script>document.write(headerHTML('npo'))</script>
+<script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">NPO & Donation</p><h1 class="page-title">NPO・寄付</h1><p class="page-desc">特定非営利活動法人の実態と日本の寄付文化</p></div></section>
-
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">NPO & Donation</p><h1 class="page-title">NPO・寄付</h1><p class="page-desc">非営利活動法人と日本の寄付文化</p></div></section>
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">NPO法人総数</span><span class="stat-card-value" style="color:var(--accent6)">50,350</span></div>
+  <div class="stat-card"><span class="stat-card-label">NPO法人</span><span class="stat-card-value" style="color:var(--amber)">50,350</span></div>
   <div class="stat-card"><span class="stat-card-label">活動率</span><span class="stat-card-value">78.5<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">平均スタッフ</span><span class="stat-card-value">12.3<small>人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">個人寄付総額</span><span class="stat-card-value" style="color:var(--accent6)">1.35<small>兆円</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">ふるさと納税</span><span class="stat-card-value" style="color:#e67e22">1.12<small>兆円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">個人寄付</span><span class="stat-card-value" style="color:var(--amber)">1.35<small>兆円</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">ふるさと納税</span><span class="stat-card-value" style="color:var(--green)">1.12<small>兆円</small></span></div>
   <div class="stat-card"><span class="stat-card-label">寄付参加率</span><span class="stat-card-value">44.1<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">平均寄付額</span><span class="stat-card-value">27,000<small>円</small></span></div>
 </div>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">NPO法人 分野別登録数</h3><div id="npo-fields"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">ふるさと納税額の推移（億円）</h3><div id="furusato-chart"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">個人寄付総額の推移（億円）</h3><div id="donation-chart"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">寄付先の内訳</h3><div id="donation-dest"></div></section>
-
-<div class="info-card fade-in"><h3>日本の寄付文化</h3><p>寄付者1人あたりの平均額は約27,000円。近年はふるさと納税が急成長し、2023年には1兆1,175億円（利用件数1,000万件超）に達している。</p><p>NPO法人は「保健・医療・福祉」分野が58.1%と最多で、年間収入1,000万円以上の法人は37.0%。平均ボランティア数は24.5人。</p><p class="info-source">出典: 日本ファンドレイジング協会「寄付白書」/ 内閣府「NPO法人実態調査」/ 総務省「ふるさと納税」</p></div>
-
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>NPO分野別登録数</h4><div id="c1"></div></div>
+  <div class="chart-box"><h4>寄付先内訳（%）</h4><div id="c2"></div></div>
+</div>
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>ふるさと納税額（億円）</h4><div id="c3"></div></div>
+  <div class="chart-box"><h4>個人寄付総額（億円）</h4><div id="c4"></div></div>
+</div>
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createHBar(document.getElementById('npo-fields'),[{name:'保健・医療・福祉',value:29245},{name:'社会教育',value:12540},{name:'まちづくり',value:11234},{name:'子どもの健全育成',value:10180},{name:'環境の保全',value:7890},{name:'学術・文化・スポーツ',value:7654}],'var(--accent6)',30000);
-createBarChart(document.getElementById('furusato-chart'),[5127,4875,6725,8302,9654,11175],['2018','2019','2020','2021','2022','2023'],12000,'#e67e22');
-createBarChart(document.getElementById('donation-chart'),[7756,9989,12126,14339,12448,13520],['2016','2018','2020','2021','2022','2023'],16000,'var(--accent6)');
-createHBar(document.getElementById('donation-dest'),[{name:'宗教関連',value:31},{name:'ふるさと納税',value:29},{name:'社会福祉',value:12},{name:'教育・研究',value:9},{name:'医療・保健',value:6},{name:'文化・芸術',value:4},{name:'その他',value:9}],'var(--accent6)',35);
-initScrollReveal(); checkAPI();
+createHBar(document.getElementById('c1'),[{name:'医療・福祉',value:29245},{name:'社会教育',value:12540},{name:'まちづくり',value:11234},{name:'子ども育成',value:10180},{name:'環境保全',value:7890}],'var(--amber)',30000);
+createHBar(document.getElementById('c2'),[{name:'宗教関連',value:31},{name:'ふるさと納税',value:29},{name:'社会福祉',value:12},{name:'教育・研究',value:9},{name:'医療・保健',value:6}],'var(--amber)',35);
+createBarChart(document.getElementById('c3'),[5127,4875,6725,8302,9654,11175],['18','19','20','21','22','23'],12000,'var(--green)');
+createBarChart(document.getElementById('c4'),[7756,9989,12126,14339,12448,13520],['16','18','20','21','22','23'],16000,'var(--amber)');
+initScrollReveal();checkAPI();
 </script></body></html>

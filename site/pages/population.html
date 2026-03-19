@@ -1,46 +1,29 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>人口 — 日本統計</title><link rel="stylesheet" href="../css/shared.css"></head><body>
 <div class="page">
 <script src="../js/shared.js"></script>
-<script>document.write(headerHTML('population'))</script>
+<script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Population</p><h1 class="page-title">人口</h1><p class="page-desc">47都道府県の人口・高齢化率・人口密度をマップとランキングで視覚化</p></div></section>
-
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Population</p><h1 class="page-title">人口</h1><p class="page-desc">47都道府県の人口・高齢化率・人口密度</p></div></section>
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">総人口</span><span class="stat-card-value" style="color:var(--accent)">123,802<small>千人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">前年比</span><span class="stat-card-value" style="color:var(--accent5)">▼550<small>千人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">総人口</span><span class="stat-card-value" style="color:var(--coral)">123,802<small>千人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">前年比</span><span class="stat-card-value" style="color:var(--red)">▼550<small>千人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">高齢化率</span><span class="stat-card-value">29.3<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">15歳未満</span><span class="stat-card-value">11.2<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--accent2)">374<small>万人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">75歳以上</span><span class="stat-card-value">2,123<small>万人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--blue)">3,743<small>千人</small></span></div>
 </div>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">都道府県別人口 Top 10</h3>
-<div id="pop-ranking"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">都道府県別高齢化率 Top 10</h3>
-<div id="aging-ranking"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">人口推移（千人）</h3>
-<div id="trend-chart"></div></section>
-
-<section class="section-spacer fade-in"><h3 class="sub-title">年齢構成比率の推移</h3>
-<div id="age-chart"></div></section>
-
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>人口推移（千人）</h4><div id="c1"></div></div>
+  <div class="chart-box"><h4>高齢化率推移（%）</h4><div id="c2"></div></div>
+</div>
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>人口 Top 10</h4><div id="c3"></div></div>
+  <div class="chart-box"><h4>高齢化率 Top 10</h4><div id="c4"></div></div>
+</div>
 <script>document.write(footerHTML())</script>
 </div>
-
 <script>
-const prefs=[["東京都",14048],["神奈川県",9232],["大阪府",8784],["愛知県",7495],["埼玉県",7337],["千葉県",6275],["兵庫県",5382],["北海道",5140],["福岡県",5115],["静岡県",3575]];
-createHBar(document.getElementById('pop-ranking'), prefs.map(p=>({name:p[0],value:p[1]})), 'var(--accent)', 15000);
-
-const aging=[["秋田県",39.0],["高知県",36.1],["島根県",35.4],["山形県",35.2],["岩手県",35.0],["山口県",35.0],["青森県",34.6],["徳島県",34.4],["新潟県",34.0],["和歌山県",33.9]];
-createHBar(document.getElementById('aging-ranking'), aging.map(p=>({name:p[0],value:p[1]*10})), 'var(--accent5)', 400);
-
-createBarChart(document.getElementById('trend-chart'),[126926,127768,128057,127095,126146,123802],['2000','2005','2010','2015','2020','2024'],130000,'var(--accent)');
-
-createBarChart(document.getElementById('age-chart'),[17.4,20.2,23.0,26.6,28.6,29.3],['2000','2005','2010','2015','2020','2024'],35,'var(--accent5)');
-
-initScrollReveal(); checkAPI();
-</script>
-</body></html>
+createBarChart(document.getElementById('c1'),[126926,127768,128057,127095,126146,123802],['00','05','10','15','20','24'],130000,'var(--coral)');
+createBarChart(document.getElementById('c2'),[17.4,20.2,23.0,26.6,28.6,29.3],['00','05','10','15','20','24'],35,'var(--red)');
+createHBar(document.getElementById('c3'),[{name:'東京都',value:14048},{name:'神奈川県',value:9232},{name:'大阪府',value:8784},{name:'愛知県',value:7495},{name:'埼玉県',value:7337}],'var(--coral)',15000);
+createHBar(document.getElementById('c4'),[{name:'秋田県',value:39.0},{name:'高知県',value:36.1},{name:'島根県',value:35.4},{name:'山形県',value:35.2},{name:'岩手県',value:35.0}],'var(--red)',42);
+initScrollReveal();checkAPI();
+</script></body></html>
