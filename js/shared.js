@@ -2,6 +2,10 @@
 const APP_ID = '6f7e88733e47d2ae3ddc010642412f04d8ca594c';
 const API_BASE = 'https://api.e-stat.go.jp/rest/3.0/app/json';
 
+// Detect if we're in a subdirectory (pages/)
+const _isSubDir = window.location.pathname.includes('/pages/');
+const _root = _isSubDir ? '../' : '';
+
 // === API Functions ===
 async function fetchAPI(endpoint, params = {}) {
   const url = new URL(`${API_BASE}/${endpoint}`);
@@ -59,44 +63,28 @@ function initParticles(canvasId) {
   const ctx = c.getContext('2d');
   let W = c.width = c.offsetWidth, H = c.height = c.offsetHeight;
   window.addEventListener('resize', () => { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; });
-
   class P {
     constructor() { this.reset(); }
-    reset() {
-      this.x = Math.random() * W; this.y = Math.random() * H;
-      this.r = Math.random() * 1.8 + 0.3;
-      this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
-      this.a = Math.random() * 0.4 + 0.1; this.p = Math.random() * Math.PI * 2;
-    }
-    update() {
-      this.x += this.vx; this.y += this.vy; this.p += 0.01;
-      this.a = 0.1 + Math.sin(this.p) * 0.15;
-      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-    }
-    draw() {
-      ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(200,90,62,${this.a})`; ctx.fill();
-    }
+    reset() { this.x = Math.random()*W; this.y = Math.random()*H; this.r = Math.random()*1.8+0.3; this.vx = (Math.random()-0.5)*0.3; this.vy = (Math.random()-0.5)*0.3; this.a = Math.random()*0.4+0.1; this.p = Math.random()*Math.PI*2; }
+    update() { this.x += this.vx; this.y += this.vy; this.p += 0.01; this.a = 0.1+Math.sin(this.p)*0.15; if (this.x<0||this.x>W||this.y<0||this.y>H) this.reset(); }
+    draw() { ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(200,90,62,${this.a})`; ctx.fill(); }
   }
-  const ps = Array.from({ length: 80 }, () => new P());
+  const ps = Array.from({length:80}, ()=>new P());
   (function loop() {
-    ctx.clearRect(0, 0, W, H);
+    ctx.clearRect(0,0,W,H);
     ps.forEach(p => { p.update(); p.draw(); });
-    for (let i = 0; i < ps.length; i++) for (let j = i + 1; j < ps.length; j++) {
-      const dx = ps[i].x - ps[j].x, dy = ps[i].y - ps[j].y, d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 120) {
-        ctx.beginPath(); ctx.moveTo(ps[i].x, ps[i].y); ctx.lineTo(ps[j].x, ps[j].y);
-        ctx.strokeStyle = `rgba(200,90,62,${0.06 * (1 - d / 120)})`; ctx.lineWidth = 0.5; ctx.stroke();
-      }
+    for (let i=0; i<ps.length; i++) for (let j=i+1; j<ps.length; j++) {
+      const dx=ps[i].x-ps[j].x, dy=ps[i].y-ps[j].y, d=Math.sqrt(dx*dx+dy*dy);
+      if (d<120) { ctx.beginPath(); ctx.moveTo(ps[i].x,ps[i].y); ctx.lineTo(ps[j].x,ps[j].y); ctx.strokeStyle=`rgba(200,90,62,${0.06*(1-d/120)})`; ctx.lineWidth=0.5; ctx.stroke(); }
     }
     requestAnimationFrame(loop);
   })();
 }
 
-// === Create Header HTML ===
+// === Header HTML (auto-adjusts path based on directory) ===
 function headerHTML(currentPage) {
   return `<header class="header">
-    <a href="index.html" class="header-brand"><span class="header-logo">日本統計</span><span class="header-sub">JAPAN STATS</span></a>
+    <a href="${_root}index.html" class="header-brand"><span class="header-logo">日本統計</span><span class="header-sub">JAPAN STATS</span></a>
     <div class="header-right">
       <button class="refresh-btn" id="refresh-btn" onclick="checkAPI()"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6M23 20v-6h-6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" stroke-linecap="round" stroke-linejoin="round"/></svg><span>更新</span></button>
       <span class="api-badge" id="api-badge">◌ ...</span>
@@ -104,7 +92,7 @@ function headerHTML(currentPage) {
   </header>`;
 }
 
-// === Create Footer HTML ===
+// === Footer HTML ===
 function footerHTML() {
   return `<footer>
     <p class="footer-brand"><a href="https://www.ryotakaneda.com/" target="_blank" rel="noopener noreferrer">Sur Communication Inc.</a></p>
@@ -113,39 +101,35 @@ function footerHTML() {
   </footer>`;
 }
 
-// === Create Nav Arrow SVG ===
+// === Nav Arrow SVG ===
 function arrowSVG() {
   return '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 }
 
-// === Create Back Button ===
+// === Back Button (auto-adjusts path) ===
 function backHTML() {
-  return `<a href="index.html" class="back-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>ホームへ戻る</span></a>`;
+  return `<a href="${_root}index.html" class="back-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>ホームへ戻る</span></a>`;
 }
 
-// === Bar Chart (pure DOM) ===
+// === Bar Chart ===
 function createBarChart(container, data, labels, maxVal, color) {
   const mx = maxVal || Math.max(...data);
   let html = '<div class="bar-chart">';
-  data.forEach((v, i) => {
-    html += `<div class="bar-item"><div class="bar-track"><div class="bar-fill" style="height:${(v/mx)*100}%;background:${color}"></div></div><span class="bar-label">${labels[i]}</span></div>`;
-  });
+  data.forEach((v, i) => { html += `<div class="bar-item"><div class="bar-track"><div class="bar-fill" style="height:${(v/mx)*100}%;background:${color}"></div></div><span class="bar-label">${labels[i]}</span></div>`; });
   html += '</div>';
   container.innerHTML = html;
 }
 
-// === HBar (pure DOM) ===
+// === HBar ===
 function createHBar(container, items, color, maxVal) {
   const mx = maxVal || Math.max(...items.map(i => i.value));
   let html = '<div class="hbar-list">';
-  items.forEach(d => {
-    html += `<div class="hbar-row"><span class="hbar-name">${d.name}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${color}"></div></div><span class="hbar-val">${d.value.toLocaleString()}</span></div>`;
-  });
+  items.forEach(d => { html += `<div class="hbar-row"><span class="hbar-name">${d.name}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${color}"></div></div><span class="hbar-val">${d.value.toLocaleString()}</span></div>`; });
   html += '</div>';
   container.innerHTML = html;
 }
 
-// === Init page ===
+// === Init ===
 document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   checkAPI();

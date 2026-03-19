@@ -11,3 +11,4 @@ japan-stats-site/.parcel-cache/
 japan-stats-site/dist/
 japan-stats-site/pnpm-lock.yaml
 *.png.bak
+site/
