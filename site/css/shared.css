@@ -269,3 +269,41 @@ footer p{font-size:.58rem;color:var(--fg4);line-height:2}
 .gov-item .gov-info{flex:1}
 .gov-item .gov-pref{font-size:.68rem;color:var(--fg3)}
 .gov-item .gov-name{font-size:.78rem;font-weight:600}
+
+/* ===== CHART WITH Y-AXIS ===== */
+.chart-with-axis{display:flex;gap:4px;align-items:stretch}
+.bar-yaxis{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;padding:0 4px 22px 0;min-width:36px}
+.bar-yaxis span{font-family:var(--mono);font-size:.48rem;color:var(--fg4);line-height:1}
+.chart-with-axis .bar-chart{flex:1}
+
+/* ===== TOOLTIP ===== */
+.chart-tooltip{position:fixed;z-index:2000;background:var(--surface3);color:var(--fg);font-size:.68rem;font-weight:500;padding:5px 10px;border-radius:var(--r-sm);border:1px solid var(--border2);pointer-events:none;white-space:nowrap;display:none;box-shadow:0 4px 12px rgba(0,0,0,.4);font-family:var(--mono)}
+
+/* ===== CHART ZOOM MODAL ===== */
+.chart-zoom-modal{background:var(--bg2);border-radius:var(--r-xl);padding:8px;max-width:720px;width:95vw;position:relative;border:1px solid var(--border2);animation:modalIn .3s var(--ease-out)}
+.chart-zoom-modal .chart-box{border:none;margin:0}
+.chart-zoom-modal .bar-chart{height:320px!important}
+.chart-zoom-modal .hbar-track{height:14px!important}
+.chart-zoom-modal .bar-label{font-size:.6rem!important}
+.chart-zoom-modal .hbar-name{font-size:.78rem!important;min-width:120px!important}
+.chart-zoom-modal .hbar-val{font-size:.75rem!important}
+.chart-zoom-modal .bar-yaxis span{font-size:.58rem!important}
+.chart-zoom-modal .donut-ring{width:200px!important;height:200px!important}
+
+/* Bar hover */
+.bar-item{cursor:pointer;transition:opacity .2s}
+.bar-item:hover .bar-fill{opacity:1!important;filter:brightness(1.2)}
+.hbar-row{cursor:pointer;transition:background .15s;border-radius:4px;padding:3px 4px;margin:-3px -4px}
+.hbar-row:hover{background:var(--surface)}
+
+/* ===== DONUT CHART ===== */
+.donut-wrap{display:flex;align-items:center;gap:16px;cursor:pointer}
+.donut-ring{width:120px;height:120px;border-radius:50%;position:relative;flex-shrink:0}
+.donut-hole{position:absolute;inset:25%;background:var(--surface);border-radius:50%;display:grid;place-items:center}
+.donut-total{font-weight:700;font-size:.72rem;color:var(--fg2);text-align:center;line-height:1.2}
+.donut-legend{display:flex;flex-direction:column;gap:4px;flex:1}
+.donut-legend-item{display:flex;align-items:center;gap:6px;font-size:.65rem;cursor:pointer;padding:2px 0;transition:opacity .2s}
+.donut-legend-item:hover{opacity:.7}
+.donut-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.donut-label{flex:1;color:var(--fg2)}
+.donut-val{font-family:var(--mono);font-weight:500;color:var(--fg)}

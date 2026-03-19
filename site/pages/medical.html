@@ -3,30 +3,130 @@
 <script src="../js/shared.js"></script>
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
-<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Medical</p><h1 class="page-title">医療・脳疾患</h1><p class="page-desc">脳卒中・脳外傷・高次脳機能障害</p></div></section>
+<section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Medical & Brain Injury</p><h1 class="page-title">医療・脳疾患</h1><p class="page-desc">脳卒中・脳外傷・高次脳機能障害の包括的統計データ。グラフをクリックすると拡大表示されます。</p></div></section>
+
+<!-- Summary Stats -->
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">脳卒中入院</span><span class="stat-card-value" style="color:var(--red)">103<small>千人/日</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">死亡数</span><span class="stat-card-value" style="color:var(--red)">97,000<small>人/年</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">在院日数</span><span class="stat-card-value">77.4<small>日</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">TBI(年間)</span><span class="stat-card-value" style="color:var(--coral)">30,000<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">脳卒中死亡</span><span class="stat-card-value" style="color:var(--red)">97,000<small>人/年</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">平均在院日数</span><span class="stat-card-value">77.4<small>日</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">TBI(年間新規)</span><span class="stat-card-value" style="color:var(--coral)">30,000<small>人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">高次脳機能障害</span><span class="stat-card-value" style="color:var(--coral)">500,000<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">支援拠点機関</span><span class="stat-card-value">125<small>箇所</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">認定障害者数</span><span class="stat-card-value" style="color:var(--amber)">78,000<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">外来患者</span><span class="stat-card-value">65<small>千人/日</small></span></div>
+</div>
+
+<!-- Stroke overview -->
+<h3 class="sub-title fade-in" style="margin-top:20px">脳卒中（脳血管疾患）</h3>
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>種類別内訳（%）— マウスオーバーで詳細</h4><div id="c-stroke-type"></div></div>
+  <div class="chart-box"><h4>入院患者数推移（千人/日）</h4><div id="c-stroke-inp"></div></div>
+</div>
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>死亡数推移（千人/年）</h4><div id="c-stroke-death"></div></div>
+  <div class="chart-box"><h4>年齢別受療率（人口10万対）</h4><div id="c-stroke-age"></div></div>
+</div>
+
+<!-- TBI Section -->
+<h3 class="sub-title fade-in" style="margin-top:20px">外傷性脳損傷（TBI）</h3>
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>原因別割合</h4><div id="c-tbi-cause"></div></div>
+  <div class="chart-box"><h4>年齢別発生率</h4><div id="c-tbi-age"></div></div>
+</div>
+
+<!-- ★ Higher Brain Dysfunction — 情報量最大 ★ -->
+<h3 class="sub-title fade-in" style="margin-top:24px;color:var(--coral)">★ 高次脳機能障害（詳細）</h3>
+
+<div class="stat-grid fade-in">
+  <div class="stat-card"><span class="stat-card-label">推計有病者</span><span class="stat-card-value" style="color:var(--coral)">500,000<small>人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">認定障害者</span><span class="stat-card-value" style="color:var(--amber)">78,000<small>人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">支援拠点</span><span class="stat-card-value">125<small>箇所</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">就労率</span><span class="stat-card-value" style="color:var(--blue)">28<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">主因:脳卒中</span><span class="stat-card-value">65<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">主因:外傷</span><span class="stat-card-value">25<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">平均発症年齢</span><span class="stat-card-value">52<small>歳</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">男女比</span><span class="stat-card-value">2:1<small>(男:女)</small></span></div>
 </div>
+
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>脳卒中 種類別（%）</h4><div id="c1"></div></div>
-  <div class="chart-box"><h4>TBI原因（%）</h4><div id="c2"></div></div>
+  <div class="chart-box"><h4>原因疾患の割合</h4><div id="c-hbd-cause"></div></div>
+  <div class="chart-box"><h4>主な症状（複数回答・%）</h4><div id="c-hbd-symptoms"></div></div>
 </div>
+
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>入院患者数推移（千人/日）</h4><div id="c3"></div></div>
-  <div class="chart-box"><h4>死亡数推移（千人）</h4><div id="c4"></div></div>
+  <div class="chart-box"><h4>年齢階級別分布</h4><div id="c-hbd-age"></div></div>
+  <div class="chart-box"><h4>日常生活自立度</h4><div id="c-hbd-adl"></div></div>
 </div>
-<div class="info-card fade-in"><h3>高次脳機能障害</h3><p>脳外傷・脳卒中の後遺症。記憶障害・注意障害・遂行機能障害・社会的行動障害が主症状。全国125支援拠点で相談対応。</p><p class="info-source">出典: 厚労省「患者調査」(令和5年) / 国立障害者リハビリテーションセンター</p></div>
+
+<div class="chart-row fade-in">
+  <div class="chart-box"><h4>就労状況</h4><div id="c-hbd-work"></div></div>
+  <div class="chart-box"><h4>支援制度の認知率（%）</h4><div id="c-hbd-aware"></div></div>
+</div>
+
+<div class="info-card fade-in">
+  <h3>高次脳機能障害とは</h3>
+  <p>脳卒中や外傷性脳損傷（交通事故・転倒など）によって脳が損傷を受けた結果、認知機能に障害が生じた状態の総称。外見上は障害がわかりにくいため「見えない障害」とも呼ばれ、本人・家族ともに苦労が大きい。</p>
+  <p><strong>主な症状:</strong> 記憶障害（新しいことが覚えられない）、注意障害（集中力の低下・複数作業困難）、遂行機能障害（計画を立てて実行できない）、社会的行動障害（感情コントロール困難・対人トラブル）。</p>
+  <p><strong>支援体制:</strong> 全国47都道府県に125箇所の支援拠点機関を設置。相談支援・リハビリテーション・就労支援・家族支援を実施。障害者手帳の取得により各種福祉サービスを利用可能。</p>
+  <p><strong>課題:</strong> 推計50万人のうち障害認定を受けているのは約78,000人（16%）にとどまり、多くが制度の狭間に置かれている。就労率は28%と低く、経済的自立の支援が急務。</p>
+</div>
+
+<div class="info-card fade-in">
+  <h3>リハビリテーションと回復の見通し</h3>
+  <p>発症後6ヶ月〜1年が回復のゴールデンタイムとされるが、2年以上経過後も改善が見られるケースあり。認知リハビリテーション、作業療法、言語聴覚療法を組み合わせた包括的アプローチが効果的。</p>
+  <p><strong>復職支援:</strong> 障害者職業センターによるジョブコーチ支援、就労継続支援A型・B型事業所の活用、障害者雇用促進法に基づく企業への働きかけ。</p>
+  <p class="info-source">出典: 厚労省「患者調査」(令和5年) / 国立障害者リハビリテーションセンター / 高次脳機能障害情報・支援センター / 東京都高次脳機能障害者実態調査</p>
+</div>
+
 <script>document.write(footerHTML())</script>
 </div>
 <script>
-createHBar(document.getElementById('c1'),[{name:'脳梗塞',value:63},{name:'脳内出血',value:23},{name:'くも膜下出血',value:8},{name:'その他',value:6}],'var(--red)',70);
-createHBar(document.getElementById('c2'),[{name:'交通事故',value:40},{name:'転倒・転落',value:35},{name:'スポーツ',value:10},{name:'その他',value:15}],'var(--coral)',45);
-createBarChart(document.getElementById('c3'),[170,152,137,134,118,112,108,103],['02','05','08','11','14','17','20','23'],180,'var(--red)');
-createBarChart(document.getElementById('c4'),[132,131,123,111,102,97],['00','05','10','15','20','23'],140,'var(--coral)');
+// Stroke charts
+createDonutChart(document.getElementById('c-stroke-type'),[
+  {name:'脳梗塞',value:63,unit:'%'},{name:'脳内出血',value:23,unit:'%'},
+  {name:'くも膜下出血',value:8,unit:'%'},{name:'その他',value:6,unit:'%'}
+],'脳卒中');
+
+createBarChart(document.getElementById('c-stroke-inp'),[170,152,137,134,118,112,108,103],['02','05','08','11','14','17','20','23'],180,'var(--red)','千人');
+createBarChart(document.getElementById('c-stroke-death'),[132,131,123,111,102,97],['00','05','10','15','20','23'],140,'var(--coral)','千人');
+createBarChart(document.getElementById('c-stroke-age'),[15,45,180,520,1200,2800],['20代','30代','40代','50代','60代','70代+'],3000,'var(--red)','');
+
+// TBI charts
+createDonutChart(document.getElementById('c-tbi-cause'),[
+  {name:'交通事故',value:40,unit:'%'},{name:'転倒・転落',value:35,unit:'%'},
+  {name:'スポーツ',value:10,unit:'%'},{name:'暴力・その他',value:15,unit:'%'}
+],'TBI原因');
+createBarChart(document.getElementById('c-tbi-age'),[12,8,15,22,18,25],['0-14','15-29','30-44','45-59','60-74','75+'],28,'var(--coral)','%');
+
+// ★ Higher Brain Dysfunction charts
+createDonutChart(document.getElementById('c-hbd-cause'),[
+  {name:'脳卒中',value:65,unit:'%'},{name:'外傷性脳損傷',value:25,unit:'%'},
+  {name:'脳炎・低酸素',value:7,unit:'%'},{name:'その他',value:3,unit:'%'}
+],'原因');
+
+createHBar(document.getElementById('c-hbd-symptoms'),[
+  {name:'記憶障害',value:82},{name:'注意障害',value:75},{name:'遂行機能障害',value:68},
+  {name:'社会的行動障害',value:52},{name:'失語症',value:35},{name:'半側空間無視',value:28},
+  {name:'病識低下',value:45}
+],'var(--coral)',90);
+
+createBarChart(document.getElementById('c-hbd-age'),[5,8,12,18,22,20,15],['10代','20代','30代','40代','50代','60代','70代+'],25,'var(--amber)','%');
+
+createDonutChart(document.getElementById('c-hbd-adl'),[
+  {name:'自立',value:22,unit:'%'},{name:'見守り必要',value:35,unit:'%'},
+  {name:'一部介助',value:28,unit:'%'},{name:'全面介助',value:15,unit:'%'}
+],'自立度');
+
+createDonutChart(document.getElementById('c-hbd-work'),[
+  {name:'一般就労',value:15,unit:'%'},{name:'福祉的就労',value:13,unit:'%'},
+  {name:'求職中',value:8,unit:'%'},{name:'未就労',value:64,unit:'%'}
+],'就労');
+
+createHBar(document.getElementById('c-hbd-aware'),[
+  {name:'障害者手帳',value:72},{name:'障害年金',value:58},{name:'自立支援医療',value:45},
+  {name:'就労移行支援',value:32},{name:'高次脳機能障害支援拠点',value:28},{name:'ジョブコーチ',value:18}
+],'var(--blue)',80);
+
 initScrollReveal();checkAPI();
 </script></body></html>

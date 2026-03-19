@@ -1,11 +1,11 @@
-/* ===== Japan Stats — Shared JS v2 ===== */
+/* ===== Japan Stats — Shared JS v3 ===== */
 const APP_ID='6f7e88733e47d2ae3ddc010642412f04d8ca594c';
 const API_BASE='https://api.e-stat.go.jp/rest/3.0/app/json';
 const WIKI_API='https://ja.wikipedia.org/api/rest_v1';
 const _isSubDir=window.location.pathname.includes('/pages/');
 const _root=_isSubDir?'../':'';
 
-// === 都道府県マスタデータ ===
+// === 都道府県マスタ ===
 const PREF_DATA={
 "北海道":{code:"01",pop:5140,density:66,aging:33.4,area:78421,capital:"札幌市",governor:"鈴木直道",established:"1886年"},
 "青森県":{code:"02",pop:1188,density:123,aging:34.6,area:9646,capital:"青森市",governor:"宮下宗一郎",established:"1871年"},
@@ -57,124 +57,56 @@ const PREF_DATA={
 };
 
 // === API ===
-async function fetchAPI(endpoint,params={}){const url=new URL(`${API_BASE}/${endpoint}`);url.searchParams.set('appId',APP_ID);Object.entries(params).forEach(([k,v])=>url.searchParams.set(k,v));const res=await fetch(url.toString());if(!res.ok)throw new Error(`HTTP ${res.status}`);return res.json()}
+async function fetchAPI(ep,p={}){const u=new URL(`${API_BASE}/${ep}`);u.searchParams.set('appId',APP_ID);Object.entries(p).forEach(([k,v])=>u.searchParams.set(k,v));const r=await fetch(u);if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}
+async function checkAPI(){const b=document.getElementById('api-badge'),btn=document.getElementById('refresh-btn');if(b)b.textContent='◌';if(btn)btn.classList.add('loading');try{const d=await fetchAPI('getStatsList',{statsCode:'00200524',limit:'1',lang:'J'});if(d?.GET_STATS_LIST?.RESULT?.STATUS===0&&b){b.textContent='● Live';b.className='api-badge live'}}catch{if(b){b.textContent='○ Offline';b.className='api-badge'}}if(btn)btn.classList.remove('loading');const ts=document.getElementById('last-refresh');if(ts)ts.textContent='最終確認: '+new Date().toLocaleTimeString('ja-JP')}
 
-async function checkAPI(){const badge=document.getElementById('api-badge');const btn=document.getElementById('refresh-btn');if(badge)badge.textContent='◌ ...';if(btn)btn.classList.add('loading');try{const d=await fetchAPI('getStatsList',{statsCode:'00200524',limit:'1',lang:'J'});if(d?.GET_STATS_LIST?.RESULT?.STATUS===0){if(badge){badge.textContent='● Live';badge.className='api-badge live'}}}catch{if(badge){badge.textContent='○ Offline';badge.className='api-badge'}}if(btn)btn.classList.remove('loading');const ts=document.getElementById('last-refresh');if(ts)ts.textContent='最終確認: '+new Date().toLocaleTimeString('ja-JP')}
+// === Wikipedia ===
+async function fetchWikiSummary(t){try{const r=await fetch(`${WIKI_API}/page/summary/${encodeURIComponent(t)}`);return r.ok?await r.json():null}catch{return null}}
 
-// === Wikipedia API (写真+概要) ===
-async function fetchWikiSummary(title){
-  try{
-    const res=await fetch(`${WIKI_API}/page/summary/${encodeURIComponent(title)}`);
-    if(!res.ok)return null;
-    return await res.json();
-  }catch{return null}
-}
-
-// === 都道府県詳細モーダル ===
-async function showPrefModal(prefName){
-  // Remove trailing suffixes for lookup
-  const name=prefName.replace(/[都道府県]$/g,'');
-  const fullName=Object.keys(PREF_DATA).find(k=>k.startsWith(name))||prefName;
-  const d=PREF_DATA[fullName];
-  if(!d)return;
-
-  // Create modal
-  const overlay=document.createElement('div');
-  overlay.className='modal-overlay';
-  overlay.onclick=()=>overlay.remove();
-
-  const content=document.createElement('div');
-  content.className='modal-content modal-wide';
-  content.onclick=e=>e.stopPropagation();
-
-  content.innerHTML=`
-    <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
-    <div class="modal-header-row">
-      <div>
-        <h2 class="modal-title">${fullName}</h2>
-        <p class="modal-sub">${d.capital} / 設置: ${d.established}</p>
-      </div>
-      <div class="modal-governor">
-        <div class="governor-photo" id="gov-photo-${d.code}"></div>
-        <div><span class="modal-gov-label">知事</span><span class="modal-gov-name" id="gov-name-${d.code}">${d.governor}</span></div>
-      </div>
-    </div>
+// === Prefecture Modal ===
+async function showPrefModal(name){
+  const fn=Object.keys(PREF_DATA).find(k=>k.startsWith(name.replace(/[都道府県]$/,'')))||name;
+  const d=PREF_DATA[fn];if(!d)return;
+  const ov=document.createElement('div');ov.className='modal-overlay';ov.onclick=()=>ov.remove();
+  const c=document.createElement('div');c.className='modal-content modal-wide';c.onclick=e=>e.stopPropagation();
+  c.innerHTML=`<button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+    <div class="modal-header-row"><div><h2 class="modal-title">${fn}</h2><p class="modal-sub">${d.capital} / 設置: ${d.established}</p></div>
+    <div class="modal-governor"><div class="governor-photo" id="gp-${d.code}"></div><div><span class="modal-gov-label">知事</span><span class="modal-gov-name">${d.governor}</span></div></div></div>
     <div class="modal-grid modal-grid-3">
       <div class="modal-stat"><span class="modal-stat-label">人口</span><span class="modal-stat-value">${d.pop.toLocaleString()}<small>千人</small></span></div>
       <div class="modal-stat"><span class="modal-stat-label">人口密度</span><span class="modal-stat-value">${d.density.toLocaleString()}<small>人/km²</small></span></div>
       <div class="modal-stat"><span class="modal-stat-label">高齢化率</span><span class="modal-stat-value">${d.aging}<small>%</small></span></div>
       <div class="modal-stat"><span class="modal-stat-label">面積</span><span class="modal-stat-value">${d.area.toLocaleString()}<small>km²</small></span></div>
       <div class="modal-stat"><span class="modal-stat-label">県庁所在地</span><span class="modal-stat-value" style="font-size:1rem">${d.capital}</span></div>
-      <div class="modal-stat"><span class="modal-stat-label">都道府県コード</span><span class="modal-stat-value" style="font-size:1rem">${d.code}</span></div>
+      <div class="modal-stat"><span class="modal-stat-label">コード</span><span class="modal-stat-value" style="font-size:1rem">${d.code}</span></div>
     </div>
-    <div class="modal-wiki" id="wiki-${d.code}"><span class="modal-loading">Wikipedia情報を取得中...</span></div>
-    <div class="modal-links">
-      <a href="https://ja.wikipedia.org/wiki/${encodeURIComponent(fullName)}" target="_blank" rel="noopener" class="modal-link">Wikipedia →</a>
-      <a href="https://www.e-stat.go.jp/regional-statistics/ssdsview/prefectures" target="_blank" rel="noopener" class="modal-link">e-Stat地域統計 →</a>
-    </div>
-    <p class="modal-source">出典: 総務省統計局「人口推計」(2024年)</p>
-  `;
-
-  overlay.appendChild(content);
-  document.body.appendChild(overlay);
-
-  // Fetch Wikipedia summary + photo
-  const wiki=await fetchWikiSummary(fullName);
-  const wikiEl=document.getElementById(`wiki-${d.code}`);
-  if(wiki&&wikiEl){
-    wikiEl.innerHTML=`<p class="wiki-extract">${wiki.extract||''}</p>`;
-  }else if(wikiEl){
-    wikiEl.innerHTML='';
-  }
-
-  // Governor photo from Wikipedia
-  const govWiki=await fetchWikiSummary(d.governor);
-  const photoEl=document.getElementById(`gov-photo-${d.code}`);
-  if(govWiki?.thumbnail?.source&&photoEl){
-    photoEl.style.backgroundImage=`url(${govWiki.thumbnail.source})`;
-    photoEl.classList.add('has-photo');
-  }
+    <div class="modal-wiki" id="wiki-${d.code}"><span class="modal-loading">Wikipedia取得中...</span></div>
+    <div class="modal-links"><a href="https://ja.wikipedia.org/wiki/${encodeURIComponent(fn)}" target="_blank" rel="noopener" class="modal-link">Wikipedia →</a><a href="https://www.e-stat.go.jp/regional-statistics/ssdsview/prefectures" target="_blank" rel="noopener" class="modal-link">e-Stat地域統計 →</a></div>
+    <p class="modal-source">出典: 総務省統計局「人口推計」(2024年)</p>`;
+  ov.appendChild(c);document.body.appendChild(ov);
+  const wiki=await fetchWikiSummary(fn);const wEl=document.getElementById(`wiki-${d.code}`);
+  if(wiki&&wEl)wEl.innerHTML=`<p class="wiki-extract">${wiki.extract||''}</p>`;else if(wEl)wEl.innerHTML='';
+  const gw=await fetchWikiSummary(d.governor);const pe=document.getElementById(`gp-${d.code}`);
+  if(gw?.thumbnail?.source&&pe){pe.style.backgroundImage=`url(${gw.thumbnail.source})`;pe.classList.add('has-photo')}
 }
 
-// === 政治家詳細モーダル ===
+// === Person Modal ===
 async function showPersonModal(name,role){
-  const overlay=document.createElement('div');
-  overlay.className='modal-overlay';
-  overlay.onclick=()=>overlay.remove();
-
-  const content=document.createElement('div');
-  content.className='modal-content modal-wide';
-  content.onclick=e=>e.stopPropagation();
-  content.innerHTML=`
-    <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
-    <div class="person-loading"><span class="modal-loading">${name} の情報を取得中...</span></div>
-  `;
-  overlay.appendChild(content);
-  document.body.appendChild(overlay);
-
-  const wiki=await fetchWikiSummary(name);
-  if(wiki){
-    content.innerHTML=`
-      <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
-      <div class="person-header">
-        ${wiki.thumbnail?`<div class="person-photo" style="background-image:url(${wiki.thumbnail.source})"></div>`:'<div class="person-photo person-no-photo"></div>'}
-        <div>
-          <h2 class="modal-title">${name}</h2>
-          <p class="modal-sub">${role}</p>
-        </div>
-      </div>
-      <p class="wiki-extract">${wiki.extract||'情報が見つかりませんでした。'}</p>
-      <div class="modal-links">
-        <a href="https://ja.wikipedia.org/wiki/${encodeURIComponent(name)}" target="_blank" rel="noopener" class="modal-link">Wikipedia →</a>
-      </div>
-    `;
-  }else{
-    content.querySelector('.person-loading').innerHTML='<p>情報を取得できませんでした。</p>';
-  }
+  const ov=document.createElement('div');ov.className='modal-overlay';ov.onclick=()=>ov.remove();
+  const c=document.createElement('div');c.className='modal-content modal-wide';c.onclick=e=>e.stopPropagation();
+  c.innerHTML=`<button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button><div class="person-loading"><span class="modal-loading">${name} の情報を取得中...</span></div>`;
+  ov.appendChild(c);document.body.appendChild(ov);
+  const w=await fetchWikiSummary(name);
+  if(w){c.innerHTML=`<button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>
+    <div class="person-header">${w.thumbnail?`<div class="person-photo" style="background-image:url(${w.thumbnail.source})"></div>`:'<div class="person-photo person-no-photo"></div>'}
+    <div><h2 class="modal-title">${name}</h2><p class="modal-sub">${role}</p></div></div>
+    <p class="wiki-extract">${w.extract||''}</p>
+    <div class="modal-links"><a href="https://ja.wikipedia.org/wiki/${encodeURIComponent(name)}" target="_blank" rel="noopener" class="modal-link">Wikipedia →</a></div>`}
+  else{c.querySelector('.person-loading').innerHTML='<p>情報を取得できませんでした。</p>'}
 }
 
 // === Scroll Reveal ===
-function initScrollReveal(){const els=document.querySelectorAll('.fade-in');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08});els.forEach(el=>obs.observe(el))}
+function initScrollReveal(){const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.08});document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el))}
 
 // === Counter ===
 function animateCounter(el,target,dur=2500){const s=Date.now();(function t(){const p=Math.min((Date.now()-s)/dur,1);el.textContent=Math.floor(target*(1-Math.pow(1-p,3))).toLocaleString();if(p<1)requestAnimationFrame(t)})()}
@@ -188,12 +120,85 @@ function footerHTML(){return`<footer><p class="footer-brand"><a href="https://ww
 function arrowSVG(){return'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
 function backHTML(){return`<a href="${_root}index.html" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>ホーム</span></a>`}
 
-// === Pref Link (ハイパーリンク付き都道府県名) ===
-function prefLink(name){return`<a href="javascript:void(0)" onclick="showPrefModal('${name}')" class="pref-link">${name}</a>`}
+// ======================================================
+// CHARTS v3: Y-axis labels + tooltip + click-to-zoom
+// ======================================================
 
-// === Charts ===
-function createBarChart(el,data,labels,maxV,color){const mx=maxV||Math.max(...data);el.innerHTML='<div class="bar-chart">'+data.map((v,i)=>`<div class="bar-item"><div class="bar-track"><div class="bar-fill" style="height:${(v/mx)*100}%;background:${color}"></div></div><span class="bar-label">${labels[i]}</span></div>`).join('')+'</div>'}
-function createHBar(el,items,color,maxV){const mx=maxV||Math.max(...items.map(i=>i.value));el.innerHTML='<div class="hbar-list">'+items.map(d=>`<div class="hbar-row"><span class="hbar-name">${d.link?`<a href="javascript:void(0)" onclick="${d.link}" class="pref-link">${d.name}</a>`:d.name}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${color}"></div></div><span class="hbar-val">${typeof d.value==='number'?d.value.toLocaleString():d.value}</span></div>`).join('')+'</div>'}
+// === Tooltip singleton ===
+let _tip=null;
+function showTip(e,text){
+  if(!_tip){_tip=document.createElement('div');_tip.className='chart-tooltip';document.body.appendChild(_tip)}
+  _tip.textContent=text;_tip.style.display='block';
+  const r=e.target.getBoundingClientRect();
+  _tip.style.left=(r.left+r.width/2-_tip.offsetWidth/2)+'px';
+  _tip.style.top=(r.top-32)+'px';
+}
+function hideTip(){if(_tip)_tip.style.display='none'}
+
+// === Zoom modal ===
+function zoomChart(el){
+  const src=el.closest('.chart-box');if(!src)return;
+  const ov=document.createElement('div');ov.className='modal-overlay';ov.onclick=()=>ov.remove();
+  const c=document.createElement('div');c.className='chart-zoom-modal';c.onclick=e=>e.stopPropagation();
+  c.innerHTML=`<button class="modal-close" onclick="this.closest('.modal-overlay').remove()">×</button>`;
+  const clone=src.cloneNode(true);
+  clone.style.background='var(--surface)';clone.style.border='none';clone.style.padding='32px';
+  clone.querySelectorAll('.bar-chart').forEach(bc=>{bc.style.height='320px'});
+  clone.querySelectorAll('.hbar-track').forEach(t=>{t.style.height='14px'});
+  c.appendChild(clone);ov.appendChild(c);document.body.appendChild(ov);
+}
+
+// === Bar Chart with Y-axis + tooltip + zoom ===
+function createBarChart(el,data,labels,maxV,color,unit=''){
+  const mx=maxV||Math.max(...data);
+  // Y-axis ticks (4 lines)
+  const ticks=[];for(let i=0;i<=3;i++){const v=Math.round(mx*i/3);ticks.push(v)}
+  const unitLabel=unit||'';
+  let yAxisHtml='<div class="bar-yaxis">';
+  for(let i=3;i>=0;i--){
+    const display=ticks[i]>=10000?(ticks[i]/1000).toFixed(0)+'k':ticks[i]>=1000?ticks[i].toLocaleString():ticks[i];
+    yAxisHtml+=`<span>${display}</span>`;
+  }
+  yAxisHtml+='</div>';
+
+  let barsHtml='<div class="bar-chart">';
+  data.forEach((v,i)=>{
+    const pct=(v/mx)*100;
+    const displayVal=typeof v==='number'?(v>=1000?v.toLocaleString():v):'';
+    barsHtml+=`<div class="bar-item" onmouseenter="showTip(event,'${labels[i]}: ${displayVal}${unitLabel}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
+      <div class="bar-track"><div class="bar-fill" style="height:${pct}%;background:${color}"></div></div>
+      <span class="bar-label">${labels[i]}</span></div>`;
+  });
+  barsHtml+='</div>';
+  el.innerHTML=`<div class="chart-with-axis">${yAxisHtml}${barsHtml}</div>`;
+}
+
+// === Donut/Pie Chart ===
+function createDonutChart(el,items,title){
+  const total=items.reduce((s,i)=>s+i.value,0);
+  let cumPct=0;
+  const colors=['var(--coral)','var(--blue)','var(--green)','var(--purple)','var(--amber)','var(--red)','var(--pink)','var(--fg3)'];
+  let gradParts=[];
+  items.forEach((item,i)=>{
+    const pct=item.value/total*100;
+    gradParts.push(`${colors[i%8]} ${cumPct}% ${cumPct+pct}%`);
+    cumPct+=pct;
+  });
+  const grad=`conic-gradient(${gradParts.join(',')})`;
+  let legendHtml=items.map((item,i)=>`<div class="donut-legend-item" onmouseenter="showTip(event,'${item.name}: ${item.value}${item.unit||''}')" onmouseleave="hideTip()"><span class="donut-dot" style="background:${colors[i%8]}"></span><span class="donut-label">${item.name}</span><span class="donut-val">${item.value}${item.unit||''}</span></div>`).join('');
+  el.innerHTML=`<div class="donut-wrap" onclick="zoomChart(this)"><div class="donut-ring" style="background:${grad}"><div class="donut-hole"><span class="donut-total">${title||total}</span></div></div><div class="donut-legend">${legendHtml}</div></div>`;
+}
+
+// === HBar with tooltip + zoom ===
+function createHBar(el,items,color,maxV){
+  const mx=maxV||Math.max(...items.map(i=>i.value));
+  el.innerHTML='<div class="hbar-list">'+items.map(d=>{
+    const nameHtml=d.link?`<a href="javascript:void(0)" onclick="${d.link}" class="pref-link">${d.name}</a>`:d.name;
+    return`<div class="hbar-row" onmouseenter="showTip(event,'${d.name}: ${typeof d.value==='number'?d.value.toLocaleString():d.value}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
+      <span class="hbar-name">${nameHtml}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${color}"></div></div>
+      <span class="hbar-val">${typeof d.value==='number'?d.value.toLocaleString():d.value}</span></div>`;
+  }).join('')+'</div>';
+}
 
 // === Init ===
 document.addEventListener('DOMContentLoaded',()=>{initScrollReveal();checkAPI()});
