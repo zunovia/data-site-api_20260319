@@ -51,7 +51,7 @@
 
 <div class="chart-row fade-in">
   <div class="chart-box"><h4>原因疾患の割合</h4><div id="c-hbd-cause"></div></div>
-  <div class="chart-box"><h4>主な症状（複数回答・%）</h4><div id="c-hbd-symptoms"></div></div>
+  <div class="chart-box"><h4>主な症状 — 複数回答（%）</h4><div id="c-hbd-symptoms"></div></div>
 </div>
 
 <div class="chart-row fade-in">
@@ -88,9 +88,9 @@ createDonutChart(document.getElementById('c-stroke-type'),[
   {name:'くも膜下出血',value:8,unit:'%'},{name:'その他',value:6,unit:'%'}
 ],'脳卒中');
 
-createBarChart(document.getElementById('c-stroke-inp'),[170,152,137,134,118,112,108,103],['02','05','08','11','14','17','20','23'],180,'var(--red)','千人');
-createBarChart(document.getElementById('c-stroke-death'),[132,131,123,111,102,97],['00','05','10','15','20','23'],140,'var(--coral)','千人');
-createBarChart(document.getElementById('c-stroke-age'),[15,45,180,520,1200,2800],['20代','30代','40代','50代','60代','70代+'],3000,'var(--red)','');
+createLineChart(document.getElementById('c-stroke-inp'),[170,152,137,134,118,112,108,103],['02','05','08','11','14','17','20','23'],180,'var(--red)','千人/日');
+createLineChart(document.getElementById('c-stroke-death'),[132,131,123,111,102,97],['00','05','10','15','20','23'],140,'var(--coral)','千人/年');
+createBarChart(document.getElementById('c-stroke-age'),[15,45,180,520,1200,2800],['20代','30代','40代','50代','60代','70代+'],3000,'var(--red)','人口10万対');
 
 // TBI charts
 createDonutChart(document.getElementById('c-tbi-cause'),[
