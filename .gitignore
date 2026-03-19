@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+.parcel-cache/
+dist/
+uv.lock
+.python-version
+japan-stats-site/node_modules/
+japan-stats-site/.parcel-cache/
+japan-stats-site/dist/
+japan-stats-site/pnpm-lock.yaml
+*.png.bak
