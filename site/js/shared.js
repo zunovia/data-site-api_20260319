@@ -220,9 +220,10 @@ function createDonutChart(el,items,title){
 function createHBar(el,items,color,maxV){
   const mx=maxV||Math.max(...items.map(i=>i.value));
   el.innerHTML='<div class="hbar-list">'+items.map(d=>{
+    const barColor=d.color||color;
     const nameHtml=d.link?`<a href="javascript:void(0)" onclick="${d.link}" class="pref-link">${d.name}</a>`:d.name;
     return`<div class="hbar-row" onmouseenter="showTip(event,'${d.name}: ${typeof d.value==='number'?d.value.toLocaleString():d.value}')" onmouseleave="hideTip()" onclick="zoomChart(this)">
-      <span class="hbar-name">${nameHtml}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${color}"></div></div>
+      <span class="hbar-name">${nameHtml}</span><div class="hbar-track"><div class="hbar-fill" style="width:${(d.value/mx)*100}%;background:${barColor}"></div></div>
       <span class="hbar-val">${typeof d.value==='number'?d.value.toLocaleString():d.value}</span></div>`;
   }).join('')+'</div>';
 }
