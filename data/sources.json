@@ -194,7 +194,7 @@
       "key": "medical",
       "file": "pages/medical.html",
       "title": "医療・脳疾患",
-      "last_updated": "2026-03-31",
+      "last_updated": "2026-09-06",
       "last_checked": "2026-09-06",
       "needs_inventory": false,
       "sources": [
@@ -211,12 +211,12 @@
         {
           "name": "人口動態統計",
           "org": "厚生労働省",
-          "url": "https://www.mhlw.go.jp/toukei/list/81-1a.html",
-          "as_of": "2023",
+          "url": "https://www.e-stat.go.jp/dbview?sid=0003464099",
+          "as_of": "2024",
           "cadence_months": 12,
-          "next_expected": "2026-09",
-          "confidence": "unknown",
-          "note": "脳卒中死亡数（97,000人/年）と死亡数推移。毎年9月ごろ前年の確定数が出る"
+          "next_expected": "2027-09",
+          "confidence": "confirmed",
+          "note": "脳血管疾患の死亡数。2024年確定数102,821人まで反映済み。旧データは2023年を97千人としていたが実際は104,533人で、7千人以上ずれていた"
         },
         {
           "name": "高次脳機能障害の推計有病者数・支援拠点機関数",
