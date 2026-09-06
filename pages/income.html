@@ -4,6 +4,8 @@
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
 <section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Income</p><h1 class="page-title">年収</h1><p class="page-desc">都道府県名クリックで自治体詳細を表示</p></div></section>
+<div id="freshness" data-page="income" class="fade-in"></div>
+
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">全国平均</span><span class="stat-card-value" style="color:var(--blue)">458<small>万円</small></span></div>
   <div class="stat-card"><span class="stat-card-label">最高</span><span class="stat-card-value" style="color:var(--blue)">620<small>万円</small></span></div>
@@ -27,4 +29,5 @@ createHBar(document.getElementById('c1'),[
   {name:'広島県',value:459,link:"showPrefModal('広島県')"}
 ],'var(--blue)',650);
 initScrollReveal();checkAPI();
-</script></body></html>
+</script><script src="../js/freshness.js" defer></script>
+</body></html>

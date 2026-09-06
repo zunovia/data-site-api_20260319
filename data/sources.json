@@ -1,0 +1,234 @@
+{
+  "_readme": [
+    "このサイトが載せている数値の出どころと鮮度を、機械可読でまとめた台帳です。",
+    "月次の点検（.github/workflows/monthly-data-check.yml）はこのファイルだけを見て、",
+    "『そろそろ新しい調査が出ているはずの出典』を洗い出します。",
+    "",
+    "重要な約束: last_updated と last_checked は別物です。",
+    "  last_updated = ページの中身（数値）が実際に変わった日",
+    "  last_checked = 出典を見に行った日（変化が無くても更新する）",
+    "中身が変わっていないのに last_updated を進めてはいけません。",
+    "読む人に『新しい情報だ』と誤解させることになります。"
+  ],
+  "schema_version": 1,
+  "generated": "2026-09-04",
+  "confidence_levels": {
+    "confirmed": "一次情報で確認した数値",
+    "estimated": "当方の推計",
+    "stale": "最新版が存在しない古い調査値",
+    "unknown": "出どころが未確認。棚卸しが必要"
+  },
+  "pages": [
+    {
+      "key": "cloud-accounting",
+      "file": "pages/cloud-accounting.html",
+      "title": "経理業務のクラウド化率",
+      "last_updated": "2026-09-04",
+      "last_checked": "2026-09-04",
+      "needs_inventory": false,
+      "sources": [
+        {
+          "name": "クラウド会計ソフトの利用状況調査",
+          "org": "MM総研",
+          "url": "https://www.m2ri.jp/release/detail.html?id=711",
+          "index_url": "https://www.m2ri.jp/release/category.html?id=5",
+          "as_of": "2026-03",
+          "cadence_months": 12,
+          "next_expected": "2027-04",
+          "confidence": "confirmed",
+          "note": "毎年3月末調査・4月ごろ公表。個人事業主のクラウド率／会計ソフト利用率／シェアの一次情報"
+        },
+        {
+          "name": "クラウド会計ソフトの法人導入実態調査",
+          "org": "MM総研",
+          "url": "https://www.m2ri.jp/release/category.html?id=5",
+          "as_of": "2017",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "stale",
+          "note": "2017年を最後に公表されていない。毎回、後継調査が出ていないかだけ確認する"
+        },
+        {
+          "name": "通信利用動向調査 / 情報通信白書",
+          "org": "総務省",
+          "url": "https://www.soumu.go.jp/johotsusintokei/statistics/statistics05.html",
+          "as_of": "2025",
+          "cadence_months": 12,
+          "next_expected": "2026-06",
+          "confidence": "confirmed",
+          "note": "企業のクラウド利用率。中小法人の推計の下敷き"
+        },
+        {
+          "name": "中小企業白書",
+          "org": "中小企業庁",
+          "url": "https://www.chusho.meti.go.jp/pamflet/hakusyo/",
+          "as_of": "2018",
+          "cadence_months": 12,
+          "next_expected": "2027-05",
+          "confidence": "stale",
+          "note": "導入事例の引用元。毎年4〜5月ごろ公表"
+        },
+        {
+          "name": "令和8年度税制改正（青色申告特別控除の見直し）",
+          "org": "財務省・国税庁",
+          "url": "https://www.mof.go.jp/tax_policy/tax_reform/",
+          "as_of": "2026",
+          "cadence_months": 12,
+          "next_expected": "2027-01",
+          "confidence": "confirmed",
+          "note": "2028年の申告から最大75万円。政省令で要件が固まったら本文を更新する"
+        }
+      ]
+    },
+    {
+      "key": "income",
+      "file": "pages/income.html",
+      "title": "年収",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "賃金構造基本統計調査",
+          "org": "厚生労働省",
+          "url": "https://www.mhlw.go.jp/toukei/list/chinginkouzou.html",
+          "as_of": "2023",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "ページ上の表記は2023年。毎年3月ごろ前年分が公表される。要棚卸し"
+        }
+      ]
+    },
+    {
+      "key": "population",
+      "file": "pages/population.html",
+      "title": "人口",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "人口推計 / 国勢調査",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/jinsui/",
+          "as_of": "2024",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "人口推計は毎月・確定値は年次。ページ内に調査年の表記が無いため要棚卸し"
+        },
+        {
+          "name": "日本の将来推計人口",
+          "org": "国立社会保障・人口問題研究所",
+          "url": "https://www.ipss.go.jp/pp-zenkoku/j/zenkoku2023/pp_zenkoku2023.asp",
+          "as_of": "2023",
+          "cadence_months": 60,
+          "next_expected": "2028-04",
+          "confidence": "unknown",
+          "note": "約5年ごと。次回は2028年ごろ"
+        }
+      ]
+    },
+    {
+      "key": "medical",
+      "file": "pages/medical.html",
+      "title": "医療・脳疾患",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "患者調査 / 人口動態統計",
+          "org": "厚生労働省",
+          "url": "https://www.mhlw.go.jp/toukei/list/list1.html",
+          "as_of": "不明",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "患者調査は3年ごと、人口動態統計は年次。ページ内に調査年の表記が無いため要棚卸し"
+        }
+      ]
+    },
+    {
+      "key": "npo",
+      "file": "pages/npo.html",
+      "title": "NPO・寄付",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "特定非営利活動法人に関する実態調査 / NPO法人ポータル",
+          "org": "内閣府",
+          "url": "https://www.npo-homepage.go.jp/",
+          "as_of": "不明",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "法人数は毎月更新。寄付白書は隔年。要棚卸し"
+        }
+      ]
+    },
+    {
+      "key": "politics",
+      "file": "pages/politics.html",
+      "title": "政治・選挙",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "国政選挙の投票率 / 選挙関連資料",
+          "org": "総務省・衆議院",
+          "url": "https://www.soumu.go.jp/senkyo/senkyo_s/news/sonota/nendaibetu/",
+          "as_of": "不明",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "選挙のたびに更新が必要。国政選挙の実施を検知したら即更新する"
+        }
+      ]
+    },
+    {
+      "key": "life",
+      "file": "pages/life.html",
+      "title": "暮らし",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-03-31",
+      "needs_inventory": true,
+      "sources": [
+        {
+          "name": "家計調査 / 社会生活基本調査",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/kakei/",
+          "as_of": "2020",
+          "cadence_months": 12,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "ページ上の表記は2020年。家計調査は年次、社会生活基本調査は5年ごと。要棚卸し"
+        }
+      ]
+    },
+    {
+      "key": "explorer",
+      "file": "pages/explorer.html",
+      "title": "データ探索",
+      "last_updated": "2026-03-31",
+      "last_checked": "2026-09-04",
+      "needs_inventory": false,
+      "sources": [
+        {
+          "name": "e-Stat API v3.0",
+          "org": "総務省統計局",
+          "url": "https://www.e-stat.go.jp/api/",
+          "as_of": "リアルタイム",
+          "cadence_months": 0,
+          "next_expected": null,
+          "confidence": "confirmed",
+          "note": "APIから都度取得するため、鮮度の点検対象外。APIの疎通だけ確認する"
+        }
+      ]
+    }
+  ]
+}

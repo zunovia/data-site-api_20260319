@@ -4,6 +4,8 @@
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
 <section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Medical & Brain Injury</p><h1 class="page-title">医療・脳疾患</h1><p class="page-desc">脳卒中・脳外傷・高次脳機能障害の包括的統計データ。グラフをクリックすると拡大表示されます。</p></div></section>
+<div id="freshness" data-page="medical" class="fade-in"></div>
+
 
 <!-- Summary Stats -->
 <div class="stat-grid fade-in">
@@ -129,4 +131,5 @@ createHBar(document.getElementById('c-hbd-aware'),[
 ],'var(--blue)',80);
 
 initScrollReveal();checkAPI();
-</script></body></html>
+</script><script src="../js/freshness.js" defer></script>
+</body></html>

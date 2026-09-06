@@ -4,6 +4,8 @@
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
 <section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Explorer</p><h1 class="page-title">データ探索</h1><p class="page-desc">e-Stat API で700以上の統計にアクセス</p></div></section>
+<div id="freshness" data-page="explorer" class="fade-in"></div>
+
 <div class="explorer-info fade-in"><h3>e-Stat API v3.0 — リアルタイム接続</h3><p>クライアントサイドJSからCORS対応APIに直接アクセスし最新データを取得。ヘッダーの「更新」でAPI疎通確認。</p>
 <div class="explorer-links"><a href="https://www.e-stat.go.jp/" target="_blank" rel="noopener noreferrer" class="explorer-link">e-Stat →</a><a href="https://www.e-stat.go.jp/api/" target="_blank" rel="noopener noreferrer" class="explorer-link">API機能 →</a><a href="https://www.e-stat.go.jp/api/api-info/e-stat-manual3-0" target="_blank" rel="noopener noreferrer" class="explorer-link">仕様書 →</a></div></div>
 <div class="explorer-info fade-in"><h3>統計コード一覧</h3><div class="code-list">
@@ -19,4 +21,5 @@
 </div></div>
 <script>document.write(footerHTML())</script>
 </div>
-<script>initScrollReveal();checkAPI();</script></body></html>
+<script>initScrollReveal();checkAPI();</script><script src="../js/freshness.js" defer></script>
+</body></html>
