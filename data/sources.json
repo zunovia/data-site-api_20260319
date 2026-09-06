@@ -20,6 +20,46 @@
   },
   "pages": [
     {
+      "key": "index",
+      "file": "index.html",
+      "title": "トップページ",
+      "last_updated": "2026-09-06",
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
+      "sources": [
+        {
+          "name": "人口推計（各年10月1日現在）",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/jinsui/",
+          "as_of": "2025-10",
+          "cadence_months": 12,
+          "next_expected": "2027-04",
+          "confidence": "confirmed",
+          "note": "総人口123,219千人・高齢化率29.4%・15歳未満10.9%・外国人384万人・総人口推移。人口ピラミッドは js/shared.js が2024年のままで未更新"
+        },
+        {
+          "name": "消費者物価指数（2020年基準）",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/cpi/",
+          "as_of": "2025",
+          "cadence_months": 12,
+          "next_expected": "2027-01",
+          "confidence": "confirmed",
+          "note": "CPI 111.9（2025年平均）とCPI推移"
+        },
+        {
+          "name": "労働力調査",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/roudou/",
+          "as_of": "2025",
+          "cadence_months": 12,
+          "next_expected": "2027-02",
+          "confidence": "confirmed",
+          "note": "完全失業率2.5%（2025年平均・前年と同率）"
+        }
+      ]
+    },
+    {
       "key": "cloud-accounting",
       "file": "pages/cloud-accounting.html",
       "title": "経理業務のクラウド化率",
