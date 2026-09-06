@@ -7,15 +7,15 @@
 <div id="freshness" data-page="population" class="fade-in"></div>
 
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">総人口</span><span class="stat-card-value" style="color:var(--coral)">123,802<small>千人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">前年比</span><span class="stat-card-value" style="color:var(--red)">▼550<small>千人</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">高齢化率</span><span class="stat-card-value">29.3<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--blue)">3,743<small>千人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">総人口</span><span class="stat-card-value" style="color:var(--coral)">123,219<small>千人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">前年比</span><span class="stat-card-value" style="color:var(--red)">▼583<small>千人</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">高齢化率</span><span class="stat-card-value">29.4<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">外国人</span><span class="stat-card-value" style="color:var(--blue)">3,839<small>千人</small></span></div>
 </div>
 
 <!-- Charts row 1: Pyramid + Line -->
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>年齢別人口ピラミッド（男女別）2024</h4><div id="pyramid"></div></div>
+  <div class="chart-box"><h4>年齢別人口ピラミッド（男女別）2024 <span style="font-size:.6rem;color:var(--fg4)">※ピラミッドのみ2024年</span></h4><div id="pyramid"></div></div>
   <div class="chart-box"><h4>総人口推移（千人）— 折れ線グラフ</h4><div id="pop-line"></div></div>
 </div>
 
@@ -34,9 +34,9 @@
 </div>
 <script>
 createPopPyramid(document.getElementById('pyramid'));
-createLineChart(document.getElementById('pop-line'),[126926,127768,128057,127095,126933,126706,126443,126167,126146,125502,125124,124352,123802],['00','02','04','06','08','10','12','14','16','18','20','22','24'],129000,'var(--coral)','千人');
-createLineChart(document.getElementById('aging-line'),[17.4,20.2,23.0,26.6,27.7,28.1,28.6,29.1,29.3],['00','05','10','15','18','20','22','23','24'],32,'var(--red)','%');
-createLineChart(document.getElementById('age3-line'),[86.4,84.1,81.0,77.3,75.1,74.4,73.7,73.9,73.7],['00','05','10','15','18','20','22','23','24'],90,'var(--blue)','百万人');
+createLineChart(document.getElementById('pop-line'),[126926,127768,128057,127095,126933,126706,126443,126167,126146,125502,125124,124352,123802,123219],['00','02','04','06','08','10','12','14','16','18','20','22','24','25'],129000,'var(--coral)','千人');
+createLineChart(document.getElementById('aging-line'),[17.4,20.2,23.0,26.6,27.7,28.1,28.6,29.1,29.3,29.4],['00','05','10','15','18','20','22','23','24','25'],32,'var(--red)','%');
+createLineChart(document.getElementById('age3-line'),[86.4,84.1,81.0,77.3,75.1,74.4,73.7,73.9,73.7,73.5],['00','05','10','15','18','20','22','23','24','25'],90,'var(--blue)','百万人');
 
 createHBar(document.getElementById('c3'),[
   {name:'東京都',value:14048,link:"showPrefModal('東京都')"},
