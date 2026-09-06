@@ -11,7 +11,7 @@
     "読む人に『新しい情報だ』と誤解させることになります。"
   ],
   "schema_version": 1,
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "confidence_levels": {
     "confirmed": "一次情報で確認した数値",
     "estimated": "当方の推計",
@@ -85,8 +85,8 @@
       "file": "pages/income.html",
       "title": "年収",
       "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
           "name": "賃金構造基本統計調査",
@@ -94,9 +94,9 @@
           "url": "https://www.mhlw.go.jp/toukei/list/chinginkouzou.html",
           "as_of": "2023",
           "cadence_months": 12,
-          "next_expected": "2026-10",
-          "confidence": "unknown",
-          "note": "ページ上の表記は2023年。毎年3月ごろ前年分が公表される。要棚卸し"
+          "next_expected": "2027-03",
+          "confidence": "stale",
+          "note": "全国平均458万円・都道府県別Top10の出どころ。毎年3月ごろ前年分を公表。掲載値は2023年分のままで2年遅れ"
         }
       ]
     },
@@ -105,28 +105,38 @@
       "file": "pages/population.html",
       "title": "人口",
       "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
-          "name": "人口推計 / 国勢調査",
+          "name": "人口推計（各年10月1日現在）",
           "org": "総務省統計局",
           "url": "https://www.stat.go.jp/data/jinsui/",
           "as_of": "2024",
           "cadence_months": 12,
-          "next_expected": "2026-10",
-          "confidence": "unknown",
-          "note": "人口推計は毎月・確定値は年次。ページ内に調査年の表記が無いため要棚卸し"
+          "next_expected": "2027-04",
+          "confidence": "stale",
+          "note": "総人口123,802千人・高齢化率29.3%・外国人3,743千人・人口推移の折れ線。2025年10月1日現在の概算値（1億2321万人）が公表済みで未反映"
         },
         {
-          "name": "日本の将来推計人口",
-          "org": "国立社会保障・人口問題研究所",
-          "url": "https://www.ipss.go.jp/pp-zenkoku/j/zenkoku2023/pp_zenkoku2023.asp",
-          "as_of": "2023",
+          "name": "国勢調査（2025年）",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/kokusei/2025/",
+          "as_of": "2020",
           "cadence_months": 60,
-          "next_expected": "2028-04",
-          "confidence": "unknown",
-          "note": "約5年ごと。次回は2028年ごろ"
+          "next_expected": "2026-10",
+          "confidence": "stale",
+          "note": "2025年調査の速報値（1億2304万人・5年で309万人減）が公表済み。確定値は順次公表される"
+        },
+        {
+          "name": "人口ピラミッド（年齢5歳階級別）",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/jinsui/",
+          "as_of": "2024",
+          "cadence_months": 12,
+          "next_expected": "2027-04",
+          "confidence": "stale",
+          "note": "js/shared.js の createPopPyramid に2024年推計値を直書きしている。更新時はそちらも直す"
         }
       ]
     },
@@ -135,18 +145,48 @@
       "file": "pages/medical.html",
       "title": "医療・脳疾患",
       "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
-          "name": "患者調査 / 人口動態統計",
+          "name": "患者調査",
           "org": "厚生労働省",
-          "url": "https://www.mhlw.go.jp/toukei/list/list1.html",
+          "url": "https://www.mhlw.go.jp/toukei/list/10-20.html",
+          "as_of": "2023",
+          "cadence_months": 36,
+          "next_expected": "2027-12",
+          "confidence": "unknown",
+          "note": "脳卒中の入院・外来患者数、平均在院日数、年齢別受療率。3年ごと（令和5年調査が直近）"
+        },
+        {
+          "name": "人口動態統計",
+          "org": "厚生労働省",
+          "url": "https://www.mhlw.go.jp/toukei/list/81-1a.html",
+          "as_of": "2023",
+          "cadence_months": 12,
+          "next_expected": "2026-09",
+          "confidence": "unknown",
+          "note": "脳卒中死亡数（97,000人/年）と死亡数推移。毎年9月ごろ前年の確定数が出る"
+        },
+        {
+          "name": "高次脳機能障害の推計有病者数・支援拠点機関数",
+          "org": "国立障害者リハビリテーションセンター ほか",
+          "url": "https://www.rehab.go.jp/brain_fukyu/",
           "as_of": "不明",
           "cadence_months": 12,
           "next_expected": "2026-10",
           "confidence": "unknown",
-          "note": "患者調査は3年ごと、人口動態統計は年次。ページ内に調査年の表記が無いため要棚卸し"
+          "note": "50万人・支援拠点125箇所・認定78,000人。広く引用される推計値だが一次資料を特定できていない。要確認"
+        },
+        {
+          "name": "外傷性脳損傷（TBI）年間新規発生",
+          "org": "各種研究・学会",
+          "url": "https://www.neurotraumatology.jp/",
+          "as_of": "不明",
+          "cadence_months": 0,
+          "next_expected": null,
+          "confidence": "unknown",
+          "note": "年間3万人・原因別割合。定点統計ではなく研究由来のため参考値として扱う"
         }
       ]
     },
@@ -155,18 +195,38 @@
       "file": "pages/npo.html",
       "title": "NPO・寄付",
       "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
-          "name": "特定非営利活動法人に関する実態調査 / NPO法人ポータル",
+          "name": "NPO法人ポータルサイト（認証法人数・分野別）",
           "org": "内閣府",
-          "url": "https://www.npo-homepage.go.jp/",
-          "as_of": "不明",
-          "cadence_months": 12,
+          "url": "https://www.npo-homepage.go.jp/about/toukei-info/ninshou-seni",
+          "as_of": "2026-03",
+          "cadence_months": 1,
           "next_expected": "2026-10",
           "confidence": "unknown",
-          "note": "法人数は毎月更新。寄付白書は隔年。要棚卸し"
+          "note": "法人数50,350・分野別登録数。毎月更新されるため、放っておくと毎月ずれる"
+        },
+        {
+          "name": "ふるさと納税に関する現況調査結果",
+          "org": "総務省",
+          "url": "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/archive/",
+          "as_of": "2023年度",
+          "cadence_months": 12,
+          "next_expected": "2026-09",
+          "confidence": "stale",
+          "note": "受入額の折れ線（2023年度=11,175億円まで）。毎年8月ごろ前年度分を公表。令和6年度分が未反映"
+        },
+        {
+          "name": "寄付白書",
+          "org": "日本ファンドレイジング協会",
+          "url": "https://jfra.jp/research",
+          "as_of": "2023",
+          "cadence_months": 24,
+          "next_expected": "2026-12",
+          "confidence": "unknown",
+          "note": "個人寄付総額1.35兆円・寄付参加率44.1%・平均寄付額27,000円。隔年刊行"
         }
       ]
     },
@@ -174,19 +234,49 @@
       "key": "politics",
       "file": "pages/politics.html",
       "title": "政治・選挙",
-      "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_updated": "2026-09-06",
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
-          "name": "国政選挙の投票率 / 選挙関連資料",
-          "org": "総務省・衆議院",
-          "url": "https://www.soumu.go.jp/senkyo/senkyo_s/news/sonota/nendaibetu/",
+          "name": "第51回衆議院議員総選挙（2026年2月8日投開票）",
+          "org": "総務省ほか",
+          "url": "https://www.soumu.go.jp/senkyo/senkyo_s/data/shugiin/",
+          "as_of": "2026-02",
+          "cadence_months": 0,
+          "next_expected": "2026-10",
+          "confidence": "confirmed",
+          "note": "政党別議席（合計465で検算済み）と投票率56.26%。周期ではなく選挙のたびに更新が必要。毎月「国政選挙が行われていないか」を確認する"
+        },
+        {
+          "name": "国会議員の定数・会派別議員数",
+          "org": "衆議院・参議院",
+          "url": "https://www.shugiin.go.jp/internet/itdb_annai.nsf/html/statics/shiryo/kaiha_m.htm",
+          "as_of": "2026-02",
+          "cadence_months": 3,
+          "next_expected": "2026-10",
+          "confidence": "confirmed",
+          "note": "衆院465・参院248。会派の異動があるので定期的に確認する"
+        },
+        {
+          "name": "都道府県知事一覧",
+          "org": "全国知事会",
+          "url": "https://www.nga.gr.jp/",
+          "as_of": "2026-03",
+          "cadence_months": 0,
+          "next_expected": "2026-10",
+          "confidence": "unknown",
+          "note": "47人を直書きしている。知事選のたびに変わるため、ページ上に作成時点と確認先を明示済み。毎月、知事選の有無を確認する"
+        },
+        {
+          "name": "地方公共団体数・女性首長数",
+          "org": "総務省",
+          "url": "https://www.soumu.go.jp/kouiki/kouiki.html",
           "as_of": "不明",
           "cadence_months": 12,
           "next_expected": "2026-10",
           "confidence": "unknown",
-          "note": "選挙のたびに更新が必要。国政選挙の実施を検知したら即更新する"
+          "note": "1,741市区町村・女性首長56人(3.2%)。調査時点が特定できていない。要確認"
         }
       ]
     },
@@ -195,18 +285,28 @@
       "file": "pages/life.html",
       "title": "暮らし",
       "last_updated": "2026-03-31",
-      "last_checked": "2026-03-31",
-      "needs_inventory": true,
+      "last_checked": "2026-09-06",
+      "needs_inventory": false,
       "sources": [
         {
-          "name": "家計調査 / 社会生活基本調査",
+          "name": "消費者物価指数（2020年基準）",
           "org": "総務省統計局",
-          "url": "https://www.stat.go.jp/data/kakei/",
-          "as_of": "2020",
+          "url": "https://www.stat.go.jp/data/cpi/",
+          "as_of": "2024",
           "cadence_months": 12,
           "next_expected": "2026-10",
+          "confidence": "stale",
+          "note": "CPI推移の折れ線（2024年=108.5まで）。年平均は毎年1月ごろ確定。2025年分が未反映"
+        },
+        {
+          "name": "家計調査 品目別都道府県庁所在市ランキング",
+          "org": "総務省統計局",
+          "url": "https://www.stat.go.jp/data/kakei/rank/index.html",
+          "as_of": "不明",
+          "cadence_months": 12,
+          "next_expected": "2027-02",
           "confidence": "unknown",
-          "note": "ページ上の表記は2020年。家計調査は年次、社会生活基本調査は5年ごと。要棚卸し"
+          "note": "ラーメン山形市・餃子宮崎市などの支出額。毎年2月ごろ直近3年平均で公表。掲載値の年次が特定できていない"
         }
       ]
     },
