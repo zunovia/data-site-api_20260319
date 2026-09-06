@@ -84,7 +84,7 @@
       "key": "income",
       "file": "pages/income.html",
       "title": "年収",
-      "last_updated": "2026-03-31",
+      "last_updated": "2026-09-06",
       "last_checked": "2026-09-06",
       "needs_inventory": false,
       "sources": [
@@ -92,11 +92,11 @@
           "name": "賃金構造基本統計調査",
           "org": "厚生労働省",
           "url": "https://www.mhlw.go.jp/toukei/list/chinginkouzou.html",
-          "as_of": "2023",
+          "as_of": "2025",
           "cadence_months": 12,
           "next_expected": "2027-03",
-          "confidence": "stale",
-          "note": "全国平均458万円・都道府県別Top10の出どころ。毎年3月ごろ前年分を公表。掲載値は2023年分のままで2年遅れ"
+          "confidence": "estimated",
+          "note": "令和7年調査の全国計340.6千円/月・東京418.3千円/月をページに追記。都道府県別の年収ランキングは令和5年のままで、e-Statからの取得が必要"
         }
       ]
     },
@@ -104,7 +104,7 @@
       "key": "population",
       "file": "pages/population.html",
       "title": "人口",
-      "last_updated": "2026-03-31",
+      "last_updated": "2026-09-06",
       "last_checked": "2026-09-06",
       "needs_inventory": false,
       "sources": [
@@ -112,21 +112,21 @@
           "name": "人口推計（各年10月1日現在）",
           "org": "総務省統計局",
           "url": "https://www.stat.go.jp/data/jinsui/",
-          "as_of": "2024",
+          "as_of": "2025-10",
           "cadence_months": 12,
           "next_expected": "2027-04",
-          "confidence": "stale",
-          "note": "総人口123,802千人・高齢化率29.3%・外国人3,743千人・人口推移の折れ線。2025年10月1日現在の概算値（1億2321万人）が公表済みで未反映"
+          "confidence": "confirmed",
+          "note": "総人口123,219千人・高齢化率29.4%・外国人3,839千人・各推移。2025年10月1日現在の確定値に更新済み"
         },
         {
           "name": "国勢調査（2025年）",
           "org": "総務省統計局",
           "url": "https://www.stat.go.jp/data/kokusei/2025/",
-          "as_of": "2020",
+          "as_of": "2025",
           "cadence_months": 60,
-          "next_expected": "2026-10",
-          "confidence": "stale",
-          "note": "2025年調査の速報値（1億2304万人・5年で309万人減）が公表済み。確定値は順次公表される"
+          "next_expected": "2027-06",
+          "confidence": "confirmed",
+          "note": "速報値は1億2304万人（5年で309万人減）。人口推計とは概念が異なるため本文の数値は人口推計で統一している。確定値は順次公表"
         },
         {
           "name": "人口ピラミッド（年齢5歳階級別）",
@@ -134,9 +134,9 @@
           "url": "https://www.stat.go.jp/data/jinsui/",
           "as_of": "2024",
           "cadence_months": 12,
-          "next_expected": "2027-04",
+          "next_expected": "2026-10",
           "confidence": "stale",
-          "note": "js/shared.js の createPopPyramid に2024年推計値を直書きしている。更新時はそちらも直す"
+          "note": "js/shared.js の createPopPyramid が2024年推計のまま。ページ上に「ピラミッドのみ2024年」と明示済み。次回2025年に差し替える"
         }
       ]
     },
@@ -194,7 +194,7 @@
       "key": "npo",
       "file": "pages/npo.html",
       "title": "NPO・寄付",
-      "last_updated": "2026-03-31",
+      "last_updated": "2026-09-06",
       "last_checked": "2026-09-06",
       "needs_inventory": false,
       "sources": [
@@ -204,19 +204,19 @@
           "url": "https://www.npo-homepage.go.jp/about/toukei-info/ninshou-seni",
           "as_of": "2026-03",
           "cadence_months": 1,
-          "next_expected": "2026-10",
-          "confidence": "unknown",
-          "note": "法人数50,350・分野別登録数。毎月更新されるため、放っておくと毎月ずれる"
+          "next_expected": "2026-12",
+          "confidence": "confirmed",
+          "note": "認証法人49,070（2026年3月31日現在）。分野別は定款記載の活動分野で1法人が複数を選べるため合計は法人数を超える"
         },
         {
           "name": "ふるさと納税に関する現況調査結果",
           "org": "総務省",
           "url": "https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/archive/",
-          "as_of": "2023年度",
+          "as_of": "2024年度",
           "cadence_months": 12,
-          "next_expected": "2026-09",
-          "confidence": "stale",
-          "note": "受入額の折れ線（2023年度=11,175億円まで）。毎年8月ごろ前年度分を公表。令和6年度分が未反映"
+          "next_expected": "2027-08",
+          "confidence": "confirmed",
+          "note": "令和6年度 受入額12,728億円（5年連続で過去最高）まで反映済み。毎年8月ごろ前年度分を公表"
         },
         {
           "name": "寄付白書",
@@ -284,7 +284,7 @@
       "key": "life",
       "file": "pages/life.html",
       "title": "暮らし",
-      "last_updated": "2026-03-31",
+      "last_updated": "2026-09-06",
       "last_checked": "2026-09-06",
       "needs_inventory": false,
       "sources": [
@@ -292,11 +292,11 @@
           "name": "消費者物価指数（2020年基準）",
           "org": "総務省統計局",
           "url": "https://www.stat.go.jp/data/cpi/",
-          "as_of": "2024",
+          "as_of": "2025",
           "cadence_months": 12,
-          "next_expected": "2026-10",
-          "confidence": "stale",
-          "note": "CPI推移の折れ線（2024年=108.5まで）。年平均は毎年1月ごろ確定。2025年分が未反映"
+          "next_expected": "2027-01",
+          "confidence": "confirmed",
+          "note": "2025年平均 総合指数111.9（前年比+3.2%）まで反映済み。年平均は毎年1月ごろ確定"
         },
         {
           "name": "家計調査 品目別都道府県庁所在市ランキング",
