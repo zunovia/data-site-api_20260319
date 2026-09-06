@@ -161,12 +161,12 @@
         {
           "name": "国勢調査（2025年）",
           "org": "総務省統計局",
-          "url": "https://www.stat.go.jp/data/kokusei/2025/",
-          "as_of": "2025",
+          "url": "https://www.stat.go.jp/data/kokusei/2025/kekka.html",
+          "as_of": "2025-10",
           "cadence_months": 60,
-          "next_expected": "2027-06",
+          "next_expected": "2026-11",
           "confidence": "confirmed",
-          "note": "速報値は1億2304万人（5年で309万人減）。人口推計とは概念が異なるため本文の数値は人口推計で統一している。確定値は順次公表"
+          "note": "人口速報集計（全国123,049,524人・都道府県別）をPREF_DATAと都道府県Top5に反映済み。年齢別の内訳は速報に無いため、基本集計（2026年11月ごろ）を待って高齢化率を更新する"
         },
         {
           "name": "人口ピラミッド（年齢5歳階級別）",
@@ -177,6 +177,16 @@
           "next_expected": "2026-10",
           "confidence": "stale",
           "note": "js/shared.js の createPopPyramid が2024年推計のまま。ページ上に「ピラミッドのみ2024年」と明示済み。次回2025年に差し替える"
+        },
+        {
+          "name": "都道府県マスタ（js/shared.js の PREF_DATA）",
+          "org": "総務省統計局ほか",
+          "url": "https://www.stat.go.jp/data/kokusei/2025/kekka.html",
+          "as_of": "2025-10",
+          "cadence_months": 12,
+          "next_expected": "2026-11",
+          "confidence": "estimated",
+          "note": "人口は令和7年国勢調査に更新済み。高齢化率は2024年時点のまま、知事名は2026年3月時点のまま。人口・年収・政治の3ページのモーダルが共有している"
         }
       ]
     },
