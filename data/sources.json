@@ -91,12 +91,12 @@
         {
           "name": "賃金構造基本統計調査",
           "org": "厚生労働省",
-          "url": "https://www.mhlw.go.jp/toukei/list/chinginkouzou.html",
+          "url": "https://www.mhlw.go.jp/toukei/itiran/roudou/chingin/kouzou/z2025/index.html",
           "as_of": "2025",
           "cadence_months": 12,
           "next_expected": "2027-03",
-          "confidence": "estimated",
-          "note": "令和7年調査の全国計340.6千円/月・東京418.3千円/月をページに追記。都道府県別の年収ランキングは令和5年のままで、e-Statからの取得が必要"
+          "confidence": "confirmed",
+          "note": "令和7年調査の都道府県別参考表（47都道府県一覧・e-Stat）から年収換算して反映済み。年収＝きまって支給する現金給与額×12＋年間賞与。全国計545.6万円・東京678.0万円"
         }
       ]
     },
