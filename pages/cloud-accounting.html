@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>経理クラウド化率 — 日本統計</title><link rel="stylesheet" href="../css/shared.css">
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>経理クラウド化率（2026年最新） — 日本統計</title><meta name="description" content="MM総研2026年3月末調査にもとづく、個人事業主・中小法人の会計ソフト利用状況とクラウド化率。シェア推移、政策の動き、導入効果まで。出典と確認状況を明記しています。"><link rel="stylesheet" href="../css/shared.css">
 <style>
 /* Page-specific styles */
 .highlight-box{background:linear-gradient(135deg,rgba(232,107,71,.08),rgba(244,185,66,.06));border:1px solid rgba(232,107,71,.2);border-radius:var(--r-lg);padding:28px;margin:20px 0}
@@ -18,7 +18,9 @@
 .timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(var(--coral),var(--amber))}
 .tl-item{position:relative;padding:10px 0 10px 16px}
 .tl-item::before{content:'';position:absolute;left:-24px;top:16px;width:10px;height:10px;border-radius:50%;background:var(--coral);border:2px solid var(--bg)}
+.tl-item.future::before{background:var(--bg);border:2px solid var(--amber)}
 .tl-year{font-family:var(--mono);font-size:.72rem;color:var(--coral);font-weight:700}
+.tl-item.future .tl-year{color:var(--amber)}
 .tl-text{font-size:.75rem;color:var(--fg2);margin-top:2px;line-height:1.7}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
 @media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
@@ -42,12 +44,38 @@
 .gap-box h3{color:var(--red);font-size:.92rem;margin-bottom:10px}
 .gap-num{font-size:2.2rem;font-weight:800;color:var(--red);line-height:1.2}
 .source-list{font-size:.6rem;color:var(--fg4);line-height:1.8;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}
+.source-list a{color:var(--fg3);text-decoration:underline;text-underline-offset:2px}
+.source-list a:hover{color:var(--blue)}
+
+/* --- 更新日と、数値の確からしさを示す仕組み（今回追加） --- */
+.updated-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.updated-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.06em;color:var(--fg2);background:var(--surface);border:1px solid var(--border2);padding:5px 12px;border-radius:100px}
+.updated-pill b{color:var(--green);font-weight:700}
+.tag{display:inline-block;font-family:var(--mono);font-size:.5rem;font-weight:700;letter-spacing:.08em;padding:2px 7px;border-radius:4px;vertical-align:middle;white-space:nowrap}
+.tag-ok{color:var(--green);background:rgba(61,214,140,.12);border:1px solid rgba(61,214,140,.28)}
+.tag-est{color:var(--amber);background:rgba(244,185,66,.12);border:1px solid rgba(244,185,66,.28)}
+.tag-old{color:var(--fg3);background:rgba(255,255,255,.04);border:1px solid var(--border2)}
+.delta{font-family:var(--mono);font-size:.55rem;font-weight:700;margin-left:5px}
+.delta.up{color:var(--green)}
+.delta.down{color:var(--red)}
+.delta.flat{color:var(--fg3)}
+.qtable{width:100%;border-collapse:collapse;font-size:.66rem}
+.qtable th,.qtable td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.qtable th{font-size:.58rem;font-weight:700;color:var(--fg3);letter-spacing:.06em;background:var(--surface2);white-space:nowrap}
+.qtable td{color:var(--fg2)}
+.qtable td:first-child{color:var(--fg);font-weight:600}
+.qtable tr:last-child td{border-bottom:0}
+.qscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);margin-top:12px}
+.legend-row{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0 0}
+.legend-item{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;color:var(--fg3)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 </style>
 </head><body>
 <div class="page">
-<script src="../js/shared.js"></script>
-<script>document.write(headerHTML())</script>
-<script>document.write(backHTML())</script>
+
+<!-- 共通ヘッダー・戻るボタンの差し込み先。shared.js を読み込んだ直後に中身を入れる -->
+<div id="mount-header"></div>
+<div id="mount-back"></div>
 
 <!-- Hero -->
 <section class="page-hero">
@@ -55,34 +83,48 @@
   <p class="section-eyebrow">Cloud Accounting</p>
   <h1 class="page-title">経理業務のクラウド化率</h1>
   <p class="page-desc">中小零細企業・個人事業主の会計ソフト利用状況と市場トレンド。営業資料・提案書にご活用ください。</p>
+  <div class="updated-bar">
+    <span class="updated-pill">最終更新 <b>2026年9月</b></span>
+    <span class="updated-pill">最新データ MM総研 <b>2026年3月末</b>調査</span>
+    <span class="updated-pill">個人事業主 n=<b>15,845</b></span>
+  </div>
 </div>
 </section>
 
 <!-- ★ Key Message -->
 <div class="highlight-box fade-in">
-  <h3>中小零細企業の約75%がまだクラウド未導入</h3>
-  <p class="highlight-num">~25%<small> クラウド会計導入率（中小法人・2025年推定）</small></p>
-  <span class="note-badge">出典: MM総研調査 + 総務省「通信利用動向調査」より推定</span>
-  <p class="annotation">中小零細法人のクラウド会計導入率は個人事業主（38.3%）に比べて大幅に低く、紙・Excel・インストール型が主流。巨大な未開拓市場が存在します。</p>
+  <h3>個人事業主は40%目前、しかし中小法人はまだ4社に1社</h3>
+  <p class="highlight-num">38.4%<small> 個人事業主のクラウド会計利用率（2026年3月末）<span class="delta flat">前年比 +0.1pt</span></small></p>
+  <span class="note-badge">出典: MM総研「クラウド会計ソフトの利用状況調査（2026年3月末）」</span>
+  <p class="annotation">
+    前回（2025年3月）が+4.6ptと大きく伸びた反動で、今回は+0.1ptの横ばい。ただし基調は拡大で、MM総研は「近い将来40%に到達する見通し」としています。
+    一方で<strong>中小法人のクラウド化は推定25%前後</strong>にとどまり、紙・Excel・インストール型が依然として主流です。
+  </p>
 </div>
 
 <!-- Summary Stats -->
 <div class="stat-grid fade-in">
-  <div class="stat-card"><span class="stat-card-label">個人事業主 クラウド率</span><span class="stat-card-value" style="color:var(--green)">38.3<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">中小法人 クラウド率</span><span class="stat-card-value" style="color:var(--amber)">~25<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">会計ソフト利用率(個人)</span><span class="stat-card-value">40.3<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">会計ソフト利用率(法人)</span><span class="stat-card-value">54.1<small>%</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">前年比伸び</span><span class="stat-card-value" style="color:var(--green)">+4.6<small>pt</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">上位3社シェア</span><span class="stat-card-value">93.7<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">個人 クラウド率 <span class="tag tag-ok">確認済</span></span><span class="stat-card-value" style="color:var(--green)">38.4<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">会計ソフト利用率(個人) <span class="tag tag-ok">確認済</span></span><span class="stat-card-value">40.9<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">インストール型(個人) <span class="tag tag-ok">確認済</span></span><span class="stat-card-value" style="color:var(--amber)">51.0<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">上位3社シェア <span class="tag tag-ok">確認済</span></span><span class="stat-card-value">94.8<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">副業・不動産 クラウド率 <span class="tag tag-ok">確認済</span></span><span class="stat-card-value" style="color:var(--blue)">33.9<small>%</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">中小法人 クラウド率 <span class="tag tag-est">推定</span></span><span class="stat-card-value" style="color:var(--amber)">~25<small>%</small></span></div>
 </div>
+<p class="annotation">
+  <span class="tag tag-ok">確認済</span> は一次情報で確認した数値、<span class="tag tag-est">推定</span> は当方の推計、<span class="tag tag-old">旧調査</span> は最新版が存在しない古い調査値です。内訳はページ下部の「データの確からしさ」に掲載しています。
+</p>
 
 <!-- ★ Charts Section 1: 個人事業主クラウド利用率推移 -->
 <section class="section-spacer fade-in">
   <p class="section-eyebrow">Trend</p>
   <h2 class="section-title">個人事業主 — クラウド会計利用率の推移</h2>
-  <p class="annotation">MM総研が毎年実施する2万人超規模の調査。会計ソフト利用者のうちクラウド型を使う比率は10年間で約3倍に急成長。</p>
+  <p class="annotation">MM総研が毎年実施する大規模調査（2026年は個人事業主15,845件）。会計ソフト利用者のうちクラウド型を使う比率は、10年で約3倍に伸びました。</p>
   <div class="chart-box" style="margin:16px 0"><h4>クラウド会計利用率 推移（%）— 個人事業主</h4><div id="c-cloud-trend"></div></div>
-  <p class="annotation">2021年の急伸（+5.0pt）は青色申告65万円控除の電子申告要件化が背景。2023年のインボイス制度開始後、2025年は+4.6ptと自律成長が加速。</p>
+  <p class="annotation">
+    2021年の急伸（+5.0pt）は青色申告65万円控除の電子申告要件化が背景。2025年は+4.6ptと大きく伸び、その反動で<strong>2026年は+0.1ptの踊り場</strong>になりました。
+    ただし2028年の確定申告（2027年分）から控除の上乗せが予定されており、次の押し上げ要因はすでに決まっています。
+  </p>
 </section>
 
 <!-- ★ Charts Section 2: 法人 vs 個人比較 -->
@@ -90,10 +132,13 @@
   <p class="section-eyebrow">Comparison</p>
   <h2 class="section-title">法人 vs 個人事業主 — クラウド化率の差</h2>
   <div class="chart-row">
-    <div class="chart-box"><h4>会計ソフト利用形態 — 個人事業主（%）</h4><div id="c-personal-type"></div></div>
-    <div class="chart-box"><h4>会計ソフト利用形態 — 中小法人（%）</h4><div id="c-corp-type"></div></div>
+    <div class="chart-box"><h4>会計ソフト利用形態 — 個人事業主（2026年）</h4><div id="c-personal-type"></div></div>
+    <div class="chart-box"><h4>会計ソフト利用形態 — 中小法人（2017年調査）</h4><div id="c-corp-type"></div></div>
   </div>
-  <p class="annotation">中小法人はインストール型が85.5%と圧倒的。個人事業主（49.5%）と比べてクラウド移行が大幅に遅れています。ここが最大の営業ターゲットです。</p>
+  <p class="annotation">
+    個人事業主でもインストール型は51.0%と過半を占めます。中小法人にいたっては85.5%がインストール型（2017年調査）。
+    <span class="tag tag-old">旧調査</span> 法人向けの定点調査はその後実施されておらず、最新の実測値は公表されていません。
+  </p>
 </section>
 
 <!-- ★ Gap Analysis -->
@@ -102,10 +147,10 @@
   <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center">
     <div>
       <p class="gap-num">~75%</p>
-      <p style="font-size:.72rem;color:var(--fg3)">中小零細法人のクラウド未導入率</p>
+      <p style="font-size:.72rem;color:var(--fg3)">中小零細法人のクラウド未導入率 <span class="tag tag-est">推定</span></p>
     </div>
     <div style="flex:1;min-width:200px">
-      <p style="font-size:.78rem;color:var(--fg2);line-height:1.8">日本の中小企業約360万社のうち、クラウド会計を導入しているのは推定90万社程度。<strong style="color:var(--red)">約270万社</strong>がまだ紙・Excel・旧型ソフトで経理業務を行っています。</p>
+      <p style="font-size:.78rem;color:var(--fg2);line-height:1.8">日本の中小企業約360万社のうち、クラウド会計を導入しているのは推定90万社程度。<strong style="color:var(--red)">約270万社</strong>がまだ紙・Excel・旧型ソフトで経理業務を行っている計算になります。</p>
     </div>
   </div>
 </div>
@@ -114,20 +159,23 @@
 <section class="section-spacer fade-in">
   <p class="section-eyebrow">Estimate</p>
   <h2 class="section-title">中小零細法人 — クラウド会計導入率の推定推移</h2>
-  <p class="annotation">法人向けの年次定点調査は2017年のMM総研調査のみ。個人事業主の成長率と総務省「通信利用動向調査」の企業クラウド利用率から推定。</p>
-  <div class="chart-box" style="margin:16px 0"><h4>中小法人 クラウド会計 推定導入率（%）</h4><div id="c-corp-trend"></div></div>
-  <span class="note-badge">※ 2017年のMM総研実測値(14.5%)を基準に、個人事業主の伸び率の約60%で推定</span>
+  <p class="annotation">法人向けの年次定点調査は2017年のMM総研調査が最後です。以降は個人事業主の伸び率と、総務省「通信利用動向調査」に見られる企業のクラウド利用拡大から推定しています。</p>
+  <div class="chart-box" style="margin:16px 0"><h4>中小法人 クラウド会計 推定導入率（%）<span class="tag tag-est" style="margin-left:6px">推定</span></h4><div id="c-corp-trend"></div></div>
+  <span class="note-badge">※ 2017年のMM総研実測値(14.5%)を基準に、個人事業主の伸び率の約60%で推定。2026年は個人が+0.1ptだったため横ばいとした</span>
 </section>
 
 <!-- ★ Charts Section 4: シェア -->
 <section class="section-spacer fade-in">
   <p class="section-eyebrow">Market Share</p>
-  <h2 class="section-title">クラウド会計ソフト シェア（2025年）</h2>
+  <h2 class="section-title">クラウド会計ソフト シェア（2026年）</h2>
   <div class="chart-row">
-    <div class="chart-box"><h4>個人事業主向け シェア</h4><div id="c-share-personal"></div></div>
+    <div class="chart-box"><h4>個人事業主向け シェア（2026年）</h4><div id="c-share-personal"></div></div>
     <div class="chart-box"><h4>中小法人向け シェア（2017年調査）</h4><div id="c-share-corp"></div></div>
   </div>
-  <p class="annotation">個人事業主では弥生が圧倒的首位（55.4%）。一方、法人向けではfreeeが首位（32.3%）と、市場セグメントで勢力図が異なる点に注目。</p>
+  <p class="annotation">
+    個人事業主では弥生が首位を維持（54.0%）。ただし前年から<span class="delta down">-1.4pt</span>で、freee<span class="delta up">+1.1pt</span>・マネーフォワード<span class="delta up">+1.4pt</span>が食い込んでいます。
+    法人向けではfreeeが首位（32.3%・2017年調査）と、セグメントで勢力図が異なります。
+  </p>
 </section>
 
 <!-- ★ Charts Section 5: シェア推移 -->
@@ -135,14 +183,14 @@
   <p class="section-eyebrow">Share Trend</p>
   <h2 class="section-title">個人事業主向け 3社シェア推移</h2>
   <div class="chart-box" style="margin:16px 0"><h4>弥生・freee・マネーフォワード シェア推移（%）</h4>
-    <div style="display:flex;gap:6px;margin-bottom:10px">
-      <span style="font-size:.6rem;color:#4a9eff;font-weight:600">● 弥生</span>
-      <span style="font-size:.6rem;color:#3dd68c;font-weight:600">● freee</span>
-      <span style="font-size:.6rem;color:#a78bfa;font-weight:600">● マネーフォワード</span>
+    <div class="legend-row">
+      <span class="legend-item"><i class="legend-dot" style="background:#4a9eff"></i>弥生</span>
+      <span class="legend-item"><i class="legend-dot" style="background:#3dd68c"></i>freee</span>
+      <span class="legend-item"><i class="legend-dot" style="background:#a78bfa"></i>マネーフォワード</span>
     </div>
     <div id="c-share-trend"></div>
   </div>
-  <p class="annotation">弥生は50%超のシェアを安定維持。freeeは法人向けに強く、マネーフォワードはセット提供（経費・給与・請求書一体型）で差別化。</p>
+  <p class="annotation">弥生は50%超を安定して維持。freeeは法人向けに強く、マネーフォワードは経費・給与・請求書を一体で提供する形で差別化しており、2026年は両社ともシェアを伸ばしました。</p>
 </section>
 
 <!-- ★ Policy Timeline -->
@@ -155,8 +203,11 @@
     <div class="tl-item"><span class="tl-year">2022年</span><p class="tl-text">改正電子帳簿保存法施行（猶予期間開始）</p></div>
     <div class="tl-item"><span class="tl-year">2023年10月</span><p class="tl-text"><strong>インボイス制度開始</strong> → 課税事業者の増加。請求書の電子化が急務に</p></div>
     <div class="tl-item"><span class="tl-year">2024年1月</span><p class="tl-text"><strong>電子帳簿保存法 完全義務化</strong> → 電子取引データの紙保存が禁止に</p></div>
-    <div class="tl-item"><span class="tl-year">2025年〜</span><p class="tl-text">IT導入補助金でクラウドソフト導入費用の3/4を補助。DX推進の追い風続く</p></div>
+    <div class="tl-item"><span class="tl-year">2025年〜</span><p class="tl-text">IT導入補助金でクラウドソフト導入費用を補助。DX推進の追い風が続く</p></div>
+    <div class="tl-item"><span class="tl-year">2026年3月</span><p class="tl-text">個人事業主のクラウド利用率が<strong>38.4%</strong>に。前年の急伸の反動で+0.1ptの踊り場となる</p></div>
+    <div class="tl-item future"><span class="tl-year">2028年の申告〜</span><p class="tl-text"><strong>青色申告特別控除が最大75万円へ</strong>（令和8年度税制改正・2027年分の申告から）。優良な電子帳簿の保存などが要件で、<strong>紙申告の55万円控除は廃止される見込み</strong>。次の大きな移行圧力になります</p></div>
   </div>
+  <span class="note-badge">※ 2028年の項目は税制改正にもとづく予定。適用要件の詳細は今後の政省令で定まります</span>
 </section>
 
 <!-- ★ Cloud vs Legacy comparison -->
@@ -196,10 +247,13 @@
   <p class="section-eyebrow">Effect</p>
   <h2 class="section-title">クラウド会計の導入効果</h2>
   <div class="chart-row">
-    <div class="chart-box"><h4>導入で得られた効果 — 複数回答（%）</h4><div id="c-effect"></div></div>
-    <div class="chart-box"><h4>導入しない理由（%）</h4><div id="c-barrier"></div></div>
+    <div class="chart-box"><h4>導入で得られた効果 — 複数回答（%）<span class="tag tag-old" style="margin-left:6px">参考値</span></h4><div id="c-effect"></div></div>
+    <div class="chart-box"><h4>導入しない理由（%）<span class="tag tag-old" style="margin-left:6px">参考値</span></h4><div id="c-barrier"></div></div>
   </div>
-  <p class="annotation">78.8%の企業が業務時間削減を実感。一方、未導入企業の最大理由は「必要がない」(45.7%)と「セキュリティ不安」(31.8%)。正しい情報提供が鍵。</p>
+  <p class="annotation">
+    約8割の企業が業務時間の削減を実感する一方、未導入企業の最大の理由は「必要がない」と「セキュリティ不安」です。技術ではなく<strong>認識の差</strong>が壁になっています。
+    <span class="tag tag-old">参考値</span> 各種公的調査からの引用で、調査年が古いものを含みます。傾向の把握にお使いください。
+  </p>
 </section>
 
 <!-- ★ Case Study -->
@@ -210,14 +264,14 @@
   <div class="case-card">
     <p class="case-title">NPO法人の経理業務自動化（実績・Sur Communication）</p>
     <p class="case-result">業務時間 87.5% 削減</p>
-    <p class="case-detail">手書き書類 → OCR → CSV仕訳の自動化パイプラインをAIで構築。2時間かかっていた月次経理を15分に短縮。既存システム（TKC, Excel, FAX）を変更せずに、AIを「間に挟む」アプローチで実現。</p>
+    <p class="case-detail">手書き書類 → OCR → 仕訳データ化の自動化パイプラインをAIで構築。月40時間かかっていた経理を5時間に短縮しました。既存システム（TKC・Excel・FAX）を変更せずに、AIを「間に挟む」アプローチで実現しています。</p>
     <span class="note-badge">第0号実績 — 既存の業務フローを壊さないAI導入</span>
   </div>
 
   <div class="case-card">
     <p class="case-title">小規模飲食店のクラウド会計導入（中小企業白書掲載事例）</p>
     <p class="case-result">経営の見える化を実現</p>
-    <p class="case-detail">POSレジアプリ（Airレジ）とクラウド会計ソフト（freee）を連携。売上データが自動で仕訳に反映され、紙管理から解放。導入コストは初期約3万円 + 年間約2万円。子育てとの両立にも貢献。</p>
+    <p class="case-detail">POSレジアプリとクラウド会計ソフトを連携。売上データが自動で仕訳に反映され、紙管理から解放されました。導入コストは初期約3万円 + 年間約2万円。子育てとの両立にも貢献しています。</p>
     <span class="note-badge">出典: 中小企業白書 2018年版</span>
   </div>
 </section>
@@ -227,10 +281,36 @@
   <p class="section-eyebrow">Challenge</p>
   <h2 class="section-title">小規模事業者のIT導入 — 課題と実態</h2>
   <div class="chart-row">
-    <div class="chart-box"><h4>IT導入の課題 — 小規模事業者（%）</h4><div id="c-challenge"></div></div>
-    <div class="chart-box"><h4>会計ソフト非利用者の代替手段（%）</h4><div id="c-alternative"></div></div>
+    <div class="chart-box"><h4>IT導入の課題 — 小規模事業者（%）<span class="tag tag-old" style="margin-left:6px">参考値</span></h4><div id="c-challenge"></div></div>
+    <div class="chart-box"><h4>会計ソフト非利用者の代替手段（%）<span class="tag tag-old" style="margin-left:6px">参考値</span></h4><div id="c-alternative"></div></div>
   </div>
-  <p class="annotation">「コストが負担できない」が44.9%で最多。しかしクラウド会計は月額1,000円〜で導入可能。IT導入補助金を使えば実質負担は1/4に。正しい情報提供と導入支援が市場開拓の鍵です。</p>
+  <p class="annotation">「コストが負担できない」が最多ですが、クラウド会計は月額1,000円台から導入できます。IT導入補助金を使えば実質負担はさらに下がります。正しい情報提供と導入支援が市場開拓の鍵です。</p>
+</section>
+
+<!-- ★ データの確からしさ（今回新設） -->
+<section class="section-spacer fade-in">
+  <p class="section-eyebrow">Data Quality</p>
+  <h2 class="section-title">データの確からしさ</h2>
+  <p class="annotation">このページの数値がどこまで確認できているかを、指標ごとに開示します。営業資料へ転記される際は、この区分もあわせてご確認ください。</p>
+  <div class="qscroll">
+    <table class="qtable">
+      <thead><tr><th>指標</th><th>値</th><th>出典</th><th>調査時点</th><th>区分</th></tr></thead>
+      <tbody>
+        <tr><td>個人事業主 クラウド会計利用率</td><td>38.4%</td><td>MM総研</td><td>2026年3月末</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>会計ソフト利用率（個人事業主）</td><td>40.9%</td><td>MM総研</td><td>2026年3月末</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>インストール型比率（個人事業主）</td><td>51.0%</td><td>MM総研</td><td>2026年3月末</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>シェア（弥生／freee／MF）</td><td>54.0 / 25.1 / 15.7%</td><td>MM総研</td><td>2026年3月末</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>副業・不動産賃貸 クラウド率</td><td>33.9%</td><td>MM総研</td><td>2026年3月末</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>クラウド利用率の年次推移</td><td>13.2 → 38.4%</td><td>MM総研 各年版</td><td>2016〜2026年</td><td><span class="tag tag-ok">確認済</span></td></tr>
+        <tr><td>中小法人 クラウド会計導入率</td><td>~25%</td><td>当方推計</td><td>2026年</td><td><span class="tag tag-est">推定</span></td></tr>
+        <tr><td>中小法人 未導入社数</td><td>約270万社</td><td>当方推計</td><td>2026年</td><td><span class="tag tag-est">推定</span></td></tr>
+        <tr><td>中小法人 利用形態・シェア</td><td>クラウド14.5% 他</td><td>MM総研 法人調査</td><td>2017年（以降更新なし）</td><td><span class="tag tag-old">旧調査</span></td></tr>
+        <tr><td>導入効果・導入しない理由</td><td>各種</td><td>公的調査より引用</td><td>調査年が古いものを含む</td><td><span class="tag tag-old">参考値</span></td></tr>
+        <tr><td>IT導入の課題・代替手段</td><td>各種</td><td>公的調査より引用</td><td>調査年が古いものを含む</td><td><span class="tag tag-old">参考値</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <span class="note-badge">法人向けの定点調査は2017年以降公表されていません。法人の数値は推定であることを前提にご覧ください</span>
 </section>
 
 <!-- CTA -->
@@ -238,56 +318,105 @@
   <h3>経理業務の改善、まずは無料診断から</h3>
   <p>Sur Communication は中小製造業を中心に「5S × AI」で業務改善を支援しています。<br>手書き・Excel・旧型ソフトからの移行、AIを活用した経理自動化をご相談ください。</p>
   <a href="https://consultation-sales-materials-001.vercel.app/" target="_blank" rel="noopener" class="cta-btn">無料診断フォーム →</a>
-  <a href="https://surc.online/" target="_blank" rel="noopener" class="cta-btn" style="background:var(--blue)">コンサルタント紹介 →</a>
+  <a href="https://surc.online/services/keiri-dx/" target="_blank" rel="noopener" class="cta-btn" style="background:var(--blue)">経理DX伴走支援を見る →</a>
 </div>
 
 <div class="source-list fade-in">
   <strong>出典・参考:</strong><br>
-  ・MM総研「クラウド会計ソフトの利用状況調査」(2016〜2025年各年版)<br>
-  ・MM総研「クラウド会計ソフトの法人導入実態調査」(2017年)<br>
-  ・総務省「通信利用動向調査」/ 情報通信白書<br>
+  ・MM総研「クラウド会計ソフトの利用状況調査（2026年3月末）」 <a href="https://www.m2ri.jp/release/detail.html?id=711" target="_blank" rel="noopener">m2ri.jp/release/detail.html?id=711</a><br>
+  ・MM総研「クラウド会計ソフトの利用状況調査」各年版（2016〜2025年） <a href="https://www.m2ri.jp/release/category.html?id=5" target="_blank" rel="noopener">プレスリリース一覧</a><br>
+  ・MM総研「クラウド会計ソフトの法人導入実態調査」(2017年・以降更新なし)<br>
+  ・総務省「通信利用動向調査」/「情報通信白書」<br>
   ・中小企業庁「中小企業白書」(2018年版)<br>
-  ・Sur Communication 第0号実績データ
+  ・令和8年度税制改正（青色申告特別控除の見直し）<br>
+  ・Sur Communication 第0号実績データ<br>
+  <span style="color:var(--fg3)">最終更新: 2026年9月4日</span>
 </div>
 
-<script>document.write(footerHTML())</script>
+<div id="mount-footer"></div>
 </div>
 
+<script src="../js/shared.js"></script>
 <script>
-// === Chart 1: Personal cloud trend (line) ===
+// 共通パーツの差し込み（document.write は使わない）
+document.getElementById('mount-header').outerHTML = headerHTML();
+document.getElementById('mount-back').outerHTML = backHTML();
+document.getElementById('mount-footer').outerHTML = footerHTML();
+
+// ======================================================
+// 複数系列の折れ線グラフ（このページ専用）
+// 以前は「年×社」の横棒9本で、社ごとの動きが追えなかったため差し替えた。
+// 座標系は shared.js の createLineChart に合わせてある。
+// ======================================================
+function createMultiLine(el,series,labels,minV,maxV,unit){
+  const W=100,H=64,padL=10,padR=5,padT=10,padB=15;
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const range=maxV-minV;
+  const X=i=>padL+(i/(labels.length-1))*plotW;
+  const Y=v=>padT+(1-(v-minV)/range)*plotH;
+
+  let grid='';
+  if(unit) grid+=`<text x="${padL+plotW/2}" y="3" text-anchor="middle" fill="#f4b942" font-size="2.8" font-weight="600" font-family="var(--mono)">(${unit})</text>`;
+  for(let i=0;i<=2;i++){
+    const v=minV+range*(i/2), y=padT+(1-i/2)*plotH;
+    grid+=`<text x="${padL-1}" y="${y+1.2}" text-anchor="end" fill="#d0c8b8" font-size="3.2" font-weight="500" font-family="var(--mono)">${v.toFixed(0)}</text>`;
+    grid+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="rgba(255,255,255,.06)" stroke-width="0.15"/>`;
+  }
+
+  let lines='',dots='',vals='';
+  series.forEach(s=>{
+    const pts=s.data.map((v,i)=>`${X(i)},${Y(v)}`).join(' ');
+    lines+=`<polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>`;
+    s.data.forEach((v,i)=>{
+      dots+=`<circle cx="${X(i)}" cy="${Y(v)}" r="1.4" fill="${s.color}" stroke="#0a0b10" stroke-width="0.6" onmouseenter="showTip(event,'${s.name} 20${labels[i]}年: ${v}${unit}')" onmouseleave="hideTip()"/>`;
+      // 値ラベルは線と重ならないよう、系列ごとに上下へ振り分ける
+      vals+=`<text x="${X(i)}" y="${Y(v)+(s.below?4.6:-3)}" text-anchor="middle" fill="${s.color}" font-size="2.9" font-weight="700" font-family="var(--mono)">${v}</text>`;
+    });
+  });
+
+  let xLabels='';
+  labels.forEach((l,i)=>{
+    xLabels+=`<text x="${X(i)}" y="${H-3}" text-anchor="middle" fill="#d0c8b8" font-size="3" font-weight="500" font-family="var(--mono)">${l}</text>`;
+  });
+  xLabels+=`<text x="${W-1}" y="${H}" text-anchor="end" fill="#f4b942" font-size="2.5" font-weight="600" font-family="var(--mono)">（年）</text>`;
+
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="xMidYMid meet" style="cursor:pointer" onclick="zoomChart(this)">${grid}${lines}${dots}${vals}${xLabels}</svg>`;
+}
+
+// === Chart 1: 個人事業主 クラウド利用率の推移（2016〜2026） ===
 createLineChart(document.getElementById('c-cloud-trend'),
-  [13.2,14.8,16.0,18.5,21.3,26.3,29.8,31.0,33.7,38.3],
-  ['16','17','18','19','20','21','22','23','24','25'],
+  [13.2,14.8,16.0,18.5,21.3,26.3,29.8,31.0,33.7,38.3,38.4],
+  ['16','17','18','19','20','21','22','23','24','25','26'],
   42,'var(--green)','%');
 
-// === Chart 2: Personal accounting type (donut) ===
+// === Chart 2: 個人事業主の会計ソフト利用形態（2026年3月末） ===
 createDonutChart(document.getElementById('c-personal-type'),[
-  {name:'クラウド型',value:38.3,unit:'%'},
-  {name:'インストール型',value:49.5,unit:'%'},
-  {name:'その他',value:12.2,unit:'%'}
-],'個人2025');
+  {name:'クラウド型',value:38.4,unit:'%'},
+  {name:'インストール型',value:51.0,unit:'%'},
+  {name:'その他',value:10.6,unit:'%'}
+],'個人2026');
 
-// === Chart 3: Corp accounting type (donut) ===
+// === Chart 3: 中小法人の会計ソフト利用形態（2017年調査・以降更新なし） ===
 createDonutChart(document.getElementById('c-corp-type'),[
   {name:'クラウド型',value:14.5,unit:'%'},
   {name:'インストール型',value:85.5,unit:'%'}
 ],'法人2017');
 
-// === Chart 4: Corp estimated trend (line) ===
+// === Chart 4: 中小法人 推定導入率（2026年は個人が横ばいのため据え置き） ===
 createLineChart(document.getElementById('c-corp-trend'),
-  [5,7,8,10,12,15,18,20,22,25],
-  ['16','17','18','19','20','21','22','23','24','25'],
+  [5,7,8,10,12,15,18,20,22,25,25],
+  ['16','17','18','19','20','21','22','23','24','25','26'],
   30,'var(--amber)','%');
 
-// === Chart 5: Personal share (donut) ===
+// === Chart 5: 個人事業主向けシェア（2026年3月末） ===
 createDonutChart(document.getElementById('c-share-personal'),[
-  {name:'弥生',value:55.4,unit:'%'},
-  {name:'freee',value:24.0,unit:'%'},
-  {name:'マネーフォワード',value:14.3,unit:'%'},
-  {name:'その他',value:6.3,unit:'%'}
-],'個人2025');
+  {name:'弥生',value:54.0,unit:'%'},
+  {name:'freee',value:25.1,unit:'%'},
+  {name:'マネーフォワード',value:15.7,unit:'%'},
+  {name:'その他',value:5.2,unit:'%'}
+],'個人2026');
 
-// === Chart 6: Corp share (donut) ===
+// === Chart 6: 中小法人向けシェア（2017年調査） ===
 createDonutChart(document.getElementById('c-share-corp'),[
   {name:'freee',value:32.3,unit:'%'},
   {name:'MFクラウド',value:19.2,unit:'%'},
@@ -296,21 +425,14 @@ createDonutChart(document.getElementById('c-share-corp'),[
   {name:'その他',value:19.3,unit:'%'}
 ],'法人2017');
 
-// === Chart 7: 3-company share trend (stacked bars) ===
-// Using HBar for each year as a compact visualization
-createHBar(document.getElementById('c-share-trend'),[
-  {name:'弥生 2021',value:57.0,color:'#4a9eff'},
-  {name:'弥生 2023',value:52.8,color:'#4a9eff'},
-  {name:'弥生 2025',value:55.4,color:'#4a9eff'},
-  {name:'freee 2021',value:20.6,color:'#3dd68c'},
-  {name:'freee 2023',value:26.0,color:'#3dd68c'},
-  {name:'freee 2025',value:24.0,color:'#3dd68c'},
-  {name:'MF 2021',value:14.8,color:'#a78bfa'},
-  {name:'MF 2023',value:15.3,color:'#a78bfa'},
-  {name:'MF 2025',value:14.3,color:'#a78bfa'}
-],'var(--blue)',60);
+// === Chart 7: 3社シェア推移（多系列の折れ線に変更） ===
+createMultiLine(document.getElementById('c-share-trend'),[
+  {name:'弥生',            color:'#4a9eff', data:[57.0,52.8,55.4,54.0]},
+  {name:'freee',           color:'#3dd68c', data:[20.6,26.0,24.0,25.1]},
+  {name:'マネーフォワード', color:'#a78bfa', data:[14.8,15.3,14.3,15.7], below:true}
+],['21','23','25','26'],10,60,'%');
 
-// === Chart 8: Effect (hbar) ===
+// === Chart 8: 導入効果（参考値） ===
 createHBar(document.getElementById('c-effect'),[
   {name:'業務時間の削減',value:78.8},
   {name:'コスト削減',value:52.3},
@@ -319,7 +441,7 @@ createHBar(document.getElementById('c-effect'),[
   {name:'ペーパーレス化',value:28.5}
 ],'var(--green)',85);
 
-// === Chart 9: Barriers (hbar) ===
+// === Chart 9: 導入しない理由（参考値） ===
 createHBar(document.getElementById('c-barrier'),[
   {name:'必要がない',value:45.7},
   {name:'セキュリティ不安',value:31.8},
@@ -328,7 +450,7 @@ createHBar(document.getElementById('c-barrier'),[
   {name:'ネットワーク不安定',value:9.5}
 ],'var(--red)',50);
 
-// === Chart 10: IT challenge (hbar) ===
+// === Chart 10: IT導入の課題（参考値） ===
 createHBar(document.getElementById('c-challenge'),[
   {name:'コストが負担できない',value:44.9},
   {name:'導入効果が不明',value:38.2},
@@ -337,7 +459,7 @@ createHBar(document.getElementById('c-challenge'),[
   {name:'セキュリティが不安',value:18.3}
 ],'var(--amber)',50);
 
-// === Chart 11: Alternative to accounting software (hbar) ===
+// === Chart 11: 会計ソフト非利用者の代替手段（参考値） ===
 createHBar(document.getElementById('c-alternative'),[
   {name:'手書き（帳簿・ノート）',value:39.8},
   {name:'Excel等の表計算',value:35.6},
