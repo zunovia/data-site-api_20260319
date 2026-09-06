@@ -4,6 +4,8 @@
 <script>document.write(headerHTML())</script>
 <script>document.write(backHTML())</script>
 <section class="page-hero"><div class="fade-in"><p class="section-eyebrow">Politics</p><h1 class="page-title">政治・選挙</h1><p class="page-desc">名前をクリックするとWikipediaから詳細と写真を取得します</p></div></section>
+<div id="freshness" data-page="politics" class="fade-in"></div>
+
 
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">衆議院</span><span class="stat-card-value" style="color:var(--purple)">465<small>人</small></span></div>
@@ -67,4 +69,5 @@ govData.forEach(([pref,gov])=>{
 });
 
 initScrollReveal();checkAPI();
-</script></body></html>
+</script><script src="../js/freshness.js" defer></script>
+</body></html>

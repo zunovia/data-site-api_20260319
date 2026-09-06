@@ -1,0 +1,55 @@
+name: 月次データ鮮度チェック
+
+# 毎月2日 7:00 JST（1日 22:00 UTC）に、data/sources.json を点検して
+# 「そろそろ新しい調査が出ているはずの出典」を Issue にまとめる。
+#
+# ここは判断の要らない部分だけを自動化している。
+# 実際に一次情報を読んで数値を差し替えるのは人（または月次ルーチン）の仕事。
+on:
+  schedule:
+    - cron: '0 22 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 鮮度を点検する
+        id: check
+        run: |
+          set +e
+          python scripts/check_freshness.py --markdown > report.md
+          echo "due=$?" >> "$GITHUB_OUTPUT"
+          cat report.md
+
+      - name: 期限到来があれば Issue を立てる／更新する
+        if: steps.check.outputs.due == '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="データ鮮度の点検 $(TZ=Asia/Tokyo date +%Y-%m)"
+          # 同じ月の Issue が既にあれば本文を差し替える（毎月1本に保つ）
+          EXISTING=$(gh issue list --state open --label data-freshness \
+                       --search "$TITLE in:title" --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --body-file report.md
+            echo "既存の Issue #$EXISTING を更新しました"
+          else
+            gh issue create --title "$TITLE" --body-file report.md \
+              --label data-freshness || \
+            gh issue create --title "$TITLE" --body-file report.md
+          fi
+
+      - name: 期限到来なし
+        if: steps.check.outputs.due == '0'
+        run: echo "確認が必要な出典はありませんでした。Issue は作りません。"
