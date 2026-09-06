@@ -10,7 +10,7 @@
 <!-- Summary Stats -->
 <div class="stat-grid fade-in">
   <div class="stat-card"><span class="stat-card-label">脳卒中入院</span><span class="stat-card-value" style="color:var(--red)">103<small>千人/日</small></span></div>
-  <div class="stat-card"><span class="stat-card-label">脳卒中死亡</span><span class="stat-card-value" style="color:var(--red)">97,000<small>人/年</small></span></div>
+  <div class="stat-card"><span class="stat-card-label">脳卒中死亡</span><span class="stat-card-value" style="color:var(--red)">102,821<small>人/年</small></span></div>
   <div class="stat-card"><span class="stat-card-label">平均在院日数</span><span class="stat-card-value">77.4<small>日</small></span></div>
   <div class="stat-card"><span class="stat-card-label">TBI(年間新規)</span><span class="stat-card-value" style="color:var(--coral)">30,000<small>人</small></span></div>
   <div class="stat-card"><span class="stat-card-label">高次脳機能障害</span><span class="stat-card-value" style="color:var(--coral)">500,000<small>人</small></span></div>
@@ -26,7 +26,7 @@
   <div class="chart-box"><h4>入院患者数推移（千人/日）</h4><div id="c-stroke-inp"></div></div>
 </div>
 <div class="chart-row fade-in">
-  <div class="chart-box"><h4>死亡数推移（千人/年）</h4><div id="c-stroke-death"></div></div>
+  <div class="chart-box"><h4>死亡数推移（千人/年・人口動態統計 確定数）</h4><div id="c-stroke-death"></div></div>
   <div class="chart-box"><h4>年齢別受療率（人口10万対）</h4><div id="c-stroke-age"></div></div>
 </div>
 
@@ -91,7 +91,8 @@ createDonutChart(document.getElementById('c-stroke-type'),[
 ],'脳卒中');
 
 createLineChart(document.getElementById('c-stroke-inp'),[170,152,137,134,118,112,108,103],['02','05','08','11','14','17','20','23'],180,'var(--red)','千人/日');
-createLineChart(document.getElementById('c-stroke-death'),[132,131,123,111,102,97],['00','05','10','15','20','23'],140,'var(--coral)','千人/年');
+// 人口動態統計（確定数）より。旧データは2023年を97千人としていたが実際は104.5千人だった
+createLineChart(document.getElementById('c-stroke-death'),[132.5,132.8,123.5,112.0,103.0,102.8],['00','05','10','15','20','24'],140,'var(--coral)','千人/年');
 createBarChart(document.getElementById('c-stroke-age'),[15,45,180,520,1200,2800],['20代','30代','40代','50代','60代','70代+'],3000,'var(--red)','人口10万対');
 
 // TBI charts
